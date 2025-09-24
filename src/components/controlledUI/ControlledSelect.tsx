@@ -1,43 +1,41 @@
 import React from 'react';
-import type {
-  Control,
-  FieldPath,
-  FieldValues,
-  UseControllerProps,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
-
-import { Input } from '@/components/ui/input';
 import {
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-} from '@/components/ui/form';
+  Controller,
+  type Control,
+  type FieldPath,
+  type FieldValues,
+  type UseControllerProps,
+} from 'react-hook-form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { FormControl, FormItem, FormLabel } from '../ui/form';
 
-type TControlledInputProps<TFieldValues extends FieldValues> = {
+type TControlledSelectProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
   label?: React.ReactNode;
   description?: React.ReactNode;
-  inputClassName?: string;
-} & Partial<UseControllerProps<TFieldValues>> &
-  Omit<
-    React.ComponentProps<'input'>,
-    'name' | 'defaultValue' | 'onChange' | 'value' | 'disabled'
-  >;
+  selectProps: {
+    options: { value: string; label: string }[];
+  };
+  className?: string;
+} & Partial<UseControllerProps<TFieldValues>>;
 
-export default function ControlledInput<TFieldValues extends FieldValues>({
+export default function ControlledSelect<TFieldValues extends FieldValues>({
   name,
   control,
   label,
-  description,
-  inputClassName,
   rules,
   defaultValue,
   disabled,
-  ...inputProps
-}: TControlledInputProps<TFieldValues>) {
+  selectProps,
+  className,
+}: TControlledSelectProps<TFieldValues>) {
   return (
     <Controller
       name={name}
@@ -58,17 +56,19 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
             </FormLabel>
           ) : null}
           <FormControl>
-            <Input
-              {...inputProps}
-              {...field}
-              className={inputClassName}
-              disabled={disabled}
-              aria-invalid={!!fieldState.error}
-            />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <SelectTrigger className={className}>
+                <SelectValue placeholder="Select a verified email to display" />
+              </SelectTrigger>
+              <SelectContent>
+                {selectProps.options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </FormControl>
-          {description ? (
-            <FormDescription>{description}</FormDescription>
-          ) : null}
           {fieldState.error ? (
             <p className="text-destructive text-sm mt-1">
               {fieldState.error?.message ||

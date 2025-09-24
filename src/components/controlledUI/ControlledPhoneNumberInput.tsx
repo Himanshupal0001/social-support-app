@@ -6,8 +6,9 @@ import type {
   UseControllerProps,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import * as RPNInput from 'react-phone-number-input';
 
-import { Input } from '@/components/ui/input';
+import { PhoneInput } from '@/components/ui/phone-input';
 import {
   FormItem,
   FormLabel,
@@ -15,29 +16,31 @@ import {
   FormDescription,
 } from '@/components/ui/form';
 
-type TControlledInputProps<TFieldValues extends FieldValues> = {
+type TControlledPhoneNumberInputProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
   label?: React.ReactNode;
   description?: React.ReactNode;
-  inputClassName?: string;
+  phoneInputClassName?: string;
 } & Partial<UseControllerProps<TFieldValues>> &
   Omit<
     React.ComponentProps<'input'>,
     'name' | 'defaultValue' | 'onChange' | 'value' | 'disabled'
-  >;
+  > &
+  Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange' | 'value'>;
 
-export default function ControlledInput<TFieldValues extends FieldValues>({
+export default function ControlledPhoneNumberInput<
+  TFieldValues extends FieldValues
+>({
   name,
   control,
   label,
   description,
-  inputClassName,
   rules,
   defaultValue,
   disabled,
-  ...inputProps
-}: TControlledInputProps<TFieldValues>) {
+  ...phoneInputProps
+}: TControlledPhoneNumberInputProps<TFieldValues>) {
   return (
     <Controller
       name={name}
@@ -58,11 +61,10 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
             </FormLabel>
           ) : null}
           <FormControl>
-            <Input
-              {...inputProps}
-              {...field}
-              className={inputClassName}
-              disabled={disabled}
+            <PhoneInput
+              {...phoneInputProps}
+              value={field.value as RPNInput.Value}
+              onChange={field.onChange}
               aria-invalid={!!fieldState.error}
             />
           </FormControl>

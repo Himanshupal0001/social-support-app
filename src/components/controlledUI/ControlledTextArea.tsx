@@ -1,49 +1,41 @@
 import React from 'react';
-import type {
-  Control,
-  FieldPath,
-  FieldValues,
-  UseControllerProps,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
-
-import { Input } from '@/components/ui/input';
 import {
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-} from '@/components/ui/form';
+  type Control,
+  type FieldPath,
+  type FieldValues,
+  type UseControllerProps,
+  Controller,
+} from 'react-hook-form';
+import { FormControl, FormItem, FormLabel } from '../ui/form';
+import { FormDescription } from '../ui/form';
+import { Textarea } from '../ui/textarea';
 
-type TControlledInputProps<TFieldValues extends FieldValues> = {
+type TControlledTextAreaProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
   label?: React.ReactNode;
   description?: React.ReactNode;
-  inputClassName?: string;
-} & Partial<UseControllerProps<TFieldValues>> &
-  Omit<
-    React.ComponentProps<'input'>,
-    'name' | 'defaultValue' | 'onChange' | 'value' | 'disabled'
-  >;
+  textAreaProps: React.ComponentProps<'textarea'>;
+  className?: string;
+} & Partial<UseControllerProps<TFieldValues>>;
 
-export default function ControlledInput<TFieldValues extends FieldValues>({
+const ControlledTextArea = ({
   name,
   control,
   label,
   description,
-  inputClassName,
+  className,
   rules,
-  defaultValue,
   disabled,
-  ...inputProps
-}: TControlledInputProps<TFieldValues>) {
+  defaultValue,
+  ...textAreaProps
+}: TControlledTextAreaProps<FieldValues>) => {
   return (
     <Controller
       name={name}
       control={control}
       rules={rules ?? {}}
-      defaultValue={defaultValue as unknown as TFieldValues[typeof name]}
+      defaultValue={defaultValue as unknown as FieldValues[typeof name]}
       disabled={disabled ?? false}
       render={({ field, fieldState }) => (
         <FormItem>
@@ -58,13 +50,7 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
             </FormLabel>
           ) : null}
           <FormControl>
-            <Input
-              {...inputProps}
-              {...field}
-              className={inputClassName}
-              disabled={disabled}
-              aria-invalid={!!fieldState.error}
-            />
+            <Textarea {...textAreaProps} {...field} className={className} />
           </FormControl>
           {description ? (
             <FormDescription>{description}</FormDescription>
@@ -79,4 +65,6 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
       )}
     />
   );
-}
+};
+
+export default ControlledTextArea;

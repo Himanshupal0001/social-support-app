@@ -3,7 +3,7 @@ import Stepper from './Stepper';
 import type { TSteps } from '../../types/stepper';
 import { Button } from '@/components/ui/button';
 
-const BUTTN_LABELS = {
+const BUTTON_LABELS = {
   BACK: 'Back',
   NEXT: 'Next',
   SUBMIT: 'Submit',
@@ -32,8 +32,8 @@ const StepperContainer = ({ steps }: { steps: TSteps[] }) => {
       <div>{steps[currentStep].content}</div>
 
       <div className=" flex items-center justify-end p-4 gap-4">
-        <Button onClick={handleBack}>{BUTTN_LABELS.BACK}</Button>
-        <Button onClick={handleNext}>{BUTTN_LABELS.NEXT}</Button>
+        <Button onClick={handleBack}>{BUTTON_LABELS.BACK}</Button>
+        <Button onClick={handleNext}>{BUTTON_LABELS.NEXT}</Button>
       </div>
     </div>
   );
