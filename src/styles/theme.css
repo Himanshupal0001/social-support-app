@@ -1,0 +1,70 @@
+/* LottieFiles Inspired Theme Variables */
+
+/* Light mode */
+:root {
+  --color-primary: #14B8A6;
+  --color-secondary: #FBBF24;
+
+  --color-bg: #FFFFFF;          /* background.default */
+  --color-bg-subtle: #F9FAFB;   /* background.subtle */
+  --color-bg-dark: #111827;     /* background.dark */
+
+  --color-fg: #1F2937;          /* text.primary */
+  --color-fg-muted: #6B7280;    /* text.secondary */
+  --color-on-dark: #FFFFFF;     /* text.onDark */
+  --color-on-dark-muted: #9CA3AF; /* text.onDarkSecondary */
+
+  --color-border: #E5E7EB;
+  --color-white: #FFFFFF;
+}
+
+/* Dark mode */
+.dark {
+  --color-primary: #14B8A6;
+  --color-secondary: #FBBF24;
+
+  --color-bg: #111827;          /* background.default */
+  --color-bg-subtle: #1F2937;   /* background.subtle */
+  --color-bg-dark: #000000;     /* background.dark */
+
+  --color-fg: #F9FAFB;          /* text.primary */
+  --color-fg-muted: #9CA3AF;    /* text.secondary */
+  --color-on-dark: #F9FAFB;     /* text.onDark */
+  --color-on-dark-muted: #9CA3AF; /* text.onDarkSecondary */
+
+  --color-border: #374151;
+  --color-white: #FFFFFF;
+}
+
+/* Utility mappings used by components */
+.bg-background { background-color: var(--color-bg); }
+.bg-subtle { background-color: var(--color-bg-subtle); }
+.bg-dark { background-color: var(--color-bg-dark); }
+.text-foreground { color: var(--color-fg); }
+.text-muted-foreground { color: var(--color-fg-muted); }
+.bg-primary { background-color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }
+.text-primary-foreground { color: var(--color-white); }
+.border { border: 1px solid var(--color-border); }
+.border-b { border-bottom: 1px solid var(--color-border); }
+.border-t { border-top: 1px solid var(--color-border); }
+
+/* Layout tokens */
+.container { max-width: 72rem; width: 100%; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.md\:py-32 { padding-top: 8rem; padding-bottom: 8rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Component tokens */
+.btn-radius { border-radius: 0.5rem; }
+.btn-padding { padding: 0.75rem 1.5rem; }
+.input-radius { border-radius: 0.5rem; }
+.input-padding { padding: 1rem 1rem 1rem 3rem; }
+.input-border { border-width: 2px; }
+.card-radius { border-radius: 0.75rem; }
+.card-shadow { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+.card-padding { padding: 1rem; }
+.header-sticky { position: sticky; top: 0; z-index: 50; }
+.header-surface { background-color: color-mix(in oklch, var(--color-white) 80%, transparent); backdrop-filter: blur(12px); }
+
