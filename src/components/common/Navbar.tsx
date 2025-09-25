@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   return (
-    <header className="header-sticky header-surface border-b ">
+    <header className="sticky top-0 z-50 bg-background/80 supports-[backdrop-filter]:bg-background/60 backdrop-blur border-b">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="font-bold text-lg">
           Social Support Portal
