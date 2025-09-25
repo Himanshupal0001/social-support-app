@@ -6,6 +6,7 @@ import type { TAIHighlightsTranslation } from './ai-highlights';
 import type { TTestimonialsTranslation } from './testimonials';
 import type { TFinalCtaTranslation } from './final-cta';
 import type { TFooterTranslation } from './footer';
+import type { TFormsTranslation } from './forms';
 
 export type TAppTranslation = {
   navbar: TNavbarTranslation;
@@ -16,4 +17,5 @@ export type TAppTranslation = {
   testimonials: TTestimonialsTranslation;
   finalCta: TFinalCtaTranslation;
   footer: TFooterTranslation;
+  forms: TFormsTranslation;
 };
