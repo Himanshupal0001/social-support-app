@@ -1,1 +1,10 @@
+/* Lock page scroll when mobile drawer is open (pure CSS) */
+:root:has(.mobile-drawer--open) {
+  overflow: hidden;
+}
+
+/* Improve drawer scroll behavior on mobile */
+.mobile-drawer {
+  overscroll-behavior: contain;
+}
 
