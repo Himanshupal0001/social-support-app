@@ -1,73 +1,114 @@
-# React + TypeScript + Vite
+# Social Support Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is this project about?
 
-Currently, two official plugins are available:
+This is a web application that helps people apply for social support services. Think of it as a digital form that guides users through the process of requesting help from social services.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application makes it easy for people to:
 
-## React Compiler
+- Fill out their personal information step by step
+- Get AI-powered help when writing about their situation
+- Switch between English and Arabic languages
+- Use it on their phone or computer
+- Get helpful notifications when things go right or wrong
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+It's built with modern web technologies to ensure it's fast, reliable, and user-friendly. The form is broken down into simple steps so users don't feel overwhelmed, and there's an AI assistant that can help them write better descriptions of their situation if they're having trouble finding the right words.
 
-## Expanding the ESLint configuration
+## Architecture and Project Flow
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### How the project is organized
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The code is structured in a logical way that makes it easy to understand and maintain:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # All the UI pieces
+│   ├── common/         # Stuff used everywhere (navigation, footer)
+│   ├── forms/          # The application form components
+│   ├── landing/        # The homepage sections
+│   └── pages/          # Different pages of the app
+├── services/           # Handles talking to external APIs
+├── localization/       # English and Arabic translations
+├── hooks/              # Reusable logic for forms and other features
+└── test/               # All the test files
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Technology choices and why
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React + TypeScript**: Makes the code more reliable and easier to debug
+- **Vite**: Super fast development and building
+- **Tailwind CSS**: Makes styling consistent and responsive
+- **React Hook Form**: Handles form validation and submission smoothly
+- **Axios**: Manages API calls with proper error handling
+- **Vitest**: Fast and reliable testing
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### How data flows through the app
+
+1. User fills out a form step
+2. React Hook Form validates the data
+3. When they submit, Axios sends it to the backend API
+4. The app shows success/error messages
+5. If successful, they get redirected to the home page
+
+The whole process is designed to be smooth and give users clear feedback at every step.
+
+## Getting Started
+
+### Clone and run the project
+
+1. **Get the code**
+
+   ```bash
+   git clone <your-repository-url>
+   cd social-support-portal
+   ```
+
+2. **Install what you need**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root folder:
+
+   ```env
+   VITE_API_BASE_URL=http://localhost:3000/api
+   VITE_OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   Go to `http://localhost:5173` and you should see the app running!
+
+### Running tests
+
+The project has tests to make sure everything works correctly. Here's how to run them:
+
+**Run all tests once:**
+
+```bash
+npm test -- --run
 ```
+
+The tests check things like:
+
+- Do all the components render properly?
+- Do the links work when clicked?
+- Do the forms validate correctly?
+- Do error pages show up when something goes wrong?
+
+### Other useful commands
+
+```bash
+npm run build        # Create production version
+npm run preview      # See how the production version looks
+npm run lint         # Check code quality
+```
+
+That's it! The project should be up and running. If you run into any issues, check that you have Node.js installed and that all the dependencies were installed correctly.
