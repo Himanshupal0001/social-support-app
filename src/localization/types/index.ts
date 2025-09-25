@@ -1,0 +1,19 @@
+import type { THeroSectionTranslation } from './hero-section';
+import type { TNavbarTranslation } from './navbar';
+import type { TAboutSectionTranslation } from './about-section';
+import type { THowItWorksTranslation } from './how-it-works';
+import type { TAIHighlightsTranslation } from './ai-highlights';
+import type { TTestimonialsTranslation } from './testimonials';
+import type { TFinalCtaTranslation } from './final-cta';
+import type { TFooterTranslation } from './footer';
+
+export type TAppTranslation = {
+  navbar: TNavbarTranslation;
+  heroSection: THeroSectionTranslation;
+  aboutSection: TAboutSectionTranslation;
+  howItWorks: THowItWorksTranslation;
+  aiHighlights: TAIHighlightsTranslation;
+  testimonials: TTestimonialsTranslation;
+  finalCta: TFinalCtaTranslation;
+  footer: TFooterTranslation;
+};

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
-import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+import LanguageToggle from './LanguageToggle';
 
 export default function Navbar() {
+  const { t } = useTranslation();
   // const [isMobileOpen, setIsMobileOpen] = useState(false);
   // const location = useLocation();
 
@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background/80 supports-[backdrop-filter]:bg-background/60 backdrop-blur border-b">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="font-bold text-lg">
+        <Link to="/" className="font-bold md:text-lg text-[12px]">
           Social Support Portal
         </Link>
         {/* Desktop nav */}
@@ -32,19 +32,19 @@ export default function Navbar() {
               isActive ? 'text-primary font-medium' : 'text-muted-foreground'
             }
           >
-            Home
+            {t('navbar.home')}
           </NavLink>
           <a
             href="#about"
             className="text-muted-foreground hover:text-foreground"
           >
-            About
+            {t('navbar.about')}
           </a>
           <a
             href="#how"
             className="text-muted-foreground hover:text-foreground"
           >
-            How It Works
+            {t('navbar.howItWorks')}
           </a>
           <NavLink
             to="/apply"
@@ -52,15 +52,15 @@ export default function Navbar() {
               isActive ? 'text-primary font-medium' : 'text-muted-foreground'
             }
           >
-            Apply Now
+            {t('navbar.applyNow')}
           </NavLink>
-          <LanguageSwitcher />
+          <LanguageToggle />
           <ThemeToggle />
         </nav>
 
         {/* Mobile controls */}
         <div className="flex items-center gap-3 md:hidden">
-          <LanguageSwitcher />
+          <LanguageToggle />
           <ThemeToggle />
           {/* <button
             type="button"

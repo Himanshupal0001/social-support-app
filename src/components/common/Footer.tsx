@@ -1,7 +1,8 @@
-import LanguageSwitcher from './LanguageSwitcher';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="mt-16 border-t">
       <div className="container mx-auto px-6 py-8">
@@ -12,7 +13,7 @@ export default function Footer() {
               Social Support Portal
             </Link>
             <p className="mt-1 text-xs text-muted-foreground">
-              Empowering communities with simple, secure support.
+              {t('footer.brandCaption')}
             </p>
           </div>
 
@@ -21,47 +22,42 @@ export default function Footer() {
             <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-start md:justify-center">
               <li>
                 <Link to="/" className="hover:text-foreground">
-                  About
+                  {t('footer.nav.about')}
                 </Link>
               </li>
               <li>
                 <a href="#how" className="hover:text-foreground">
-                  How It Works
+                  {t('footer.nav.howItWorks')}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="hover:text-foreground">
-                  Contact
+                  {t('footer.nav.contact')}
                 </a>
               </li>
               <li>
                 <a href="#accessibility" className="hover:text-foreground">
-                  Accessibility
+                  {t('footer.nav.accessibility')}
                 </a>
               </li>
               <li>
                 <a href="#privacy" className="hover:text-foreground">
-                  Privacy Policy
+                  {t('footer.nav.privacy')}
                 </a>
               </li>
             </ul>
           </nav>
-
-          {/* Tools */}
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher />
-            <p className="text-sm text-muted-foreground">© 2025</p>
-          </div>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
           <p>
-            Built with care. <span className="hidden md:inline">—</span>{' '}
+            {t('footer.builtWithCare')}{' '}
+            <span className="hidden md:inline">—</span>{' '}
             <span className="md:hidden block" />
-            Need help?{' '}
+            {t('footer.needHelp')}{' '}
             <a href="#contact" className="text-primary hover:underline">
-              Contact us
+              {t('footer.contactUs')}
             </a>
           </p>
         </div>

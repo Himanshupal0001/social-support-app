@@ -1,0 +1,21 @@
+export type THeroSectionTranslation = {
+  mainTitle: string;
+  description: string;
+  startBtnText: string;
+  learnMoreText: string;
+  applicationsText: string;
+  guidanceText: string;
+  secureText: string;
+  smartGuidanceText: string;
+  yourApplicationText: string;
+  yourApplicationDescriptionText: string;
+  step1Title: string;
+  step1Description: string;
+  step2Title: string;
+  step2Description: string;
+  step3Title: string;
+  step3Description: string;
+  encryptedText: string;
+  helpText: string;
+  fastTrackText: string;
+};
