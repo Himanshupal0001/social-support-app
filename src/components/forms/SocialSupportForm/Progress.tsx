@@ -1,14 +1,35 @@
 import type { IconType } from 'react-icons';
-import type { TSteps } from '../../types/stepper';
+import { GoMail, GoPeople, GoPerson, GoShieldCheck } from 'react-icons/go';
+import { useTranslation } from 'react-i18next';
 
 type TStepperProps = {
-  steps: TSteps[];
   currentStep: number;
 };
 
-const Stepper = ({ steps, currentStep }: TStepperProps) => {
+const Progress = ({ currentStep }: TStepperProps) => {
+  const { t } = useTranslation();
+  const progress = t('forms.progress', { returnObjects: true }) as any;
+
+  const STEPS = [
+    {
+      label: progress.steps.personalInfo,
+      icon: GoPerson,
+    },
+    {
+      label: progress.steps.familyFinancialInfo,
+      icon: GoPeople,
+    },
+    {
+      label: progress.steps.describeSituation,
+      icon: GoMail,
+    },
+    {
+      label: progress.steps.reviewSubmit,
+      icon: GoShieldCheck,
+    },
+  ];
   const progressPercent =
-    steps.length > 1 ? (currentStep / (steps.length - 1)) * 100 : 100;
+    STEPS.length > 1 ? (currentStep / (STEPS.length - 1)) * 100 : 100;
 
   return (
     <div className="w-1/2 max-w-xl mx-auto">
@@ -22,7 +43,7 @@ const Stepper = ({ steps, currentStep }: TStepperProps) => {
 
       {/* Step indicators and labels */}
       <div className="mt-4 flex items-center justify-between">
-        {steps.map((step, index) => (
+        {STEPS.map((step, index) => (
           <div key={index} className="flex items-center gap-2">
             <StepIndicator Icon={step.icon} isActive={index <= currentStep} />
             {currentStep === index && (
@@ -35,7 +56,7 @@ const Stepper = ({ steps, currentStep }: TStepperProps) => {
   );
 };
 
-export default Stepper;
+export default Progress;
 
 const StepLabel = ({
   label,
@@ -44,10 +65,13 @@ const StepLabel = ({
   label: string;
   stepNumber: number;
 }) => {
+  const { t } = useTranslation();
+  const progress = t('forms.progress', { returnObjects: true }) as any;
+
   return (
     <div className="md:flex md:flex-col hidden ">
       <span className="text-[13px] font-medium text-primary">
-        STEP {stepNumber}
+        {progress.stepLabel} {stepNumber}
       </span>
       <span className="text-[13px] font-medium">{label}</span>
     </div>

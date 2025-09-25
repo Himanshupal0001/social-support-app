@@ -47,7 +47,7 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
       disabled={disabled ?? false}
       render={({ field, fieldState }) => (
         <FormItem>
-          {label ? (
+          {label && (
             <FormLabel className="flex items-center gap-1">
               <span>{label}</span>
               {rules?.required ? (
@@ -56,7 +56,8 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
                 </span>
               ) : null}
             </FormLabel>
-          ) : null}
+          )}
+
           <FormControl>
             <Input
               {...inputProps}
@@ -66,15 +67,15 @@ export default function ControlledInput<TFieldValues extends FieldValues>({
               aria-invalid={!!fieldState.error}
             />
           </FormControl>
-          {description ? (
-            <FormDescription>{description}</FormDescription>
-          ) : null}
-          {fieldState.error ? (
+
+          {description && <FormDescription>{description}</FormDescription>}
+
+          {fieldState.error && (
             <p className="text-destructive text-sm mt-1">
               {fieldState.error?.message ||
                 String(fieldState.error?.message ?? '')}
             </p>
-          ) : null}
+          )}
         </FormItem>
       )}
     />

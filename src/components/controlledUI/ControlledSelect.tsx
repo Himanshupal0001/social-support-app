@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Controller,
+  useWatch,
   type Control,
   type FieldPath,
   type FieldValues,
@@ -13,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { FormControl, FormItem, FormLabel } from '../ui/form';
+import { FormControl, FormItem, FormLabel } from '@/components/ui/form';
 
 type TControlledSelectProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
@@ -22,6 +23,7 @@ type TControlledSelectProps<TFieldValues extends FieldValues> = {
   description?: React.ReactNode;
   selectProps: {
     options: { value: string; label: string }[];
+    onChange?: (value: string) => void;
   };
   className?: string;
 } & Partial<UseControllerProps<TFieldValues>>;
@@ -36,6 +38,8 @@ export default function ControlledSelect<TFieldValues extends FieldValues>({
   selectProps,
   className,
 }: TControlledSelectProps<TFieldValues>) {
+  const selectedValue = useWatch({ name, control });
+
   return (
     <Controller
       name={name}
@@ -44,7 +48,7 @@ export default function ControlledSelect<TFieldValues extends FieldValues>({
       defaultValue={defaultValue as unknown as TFieldValues[typeof name]}
       disabled={disabled ?? false}
       render={({ field, fieldState }) => (
-        <FormItem>
+        <FormItem key={selectedValue}>
           {label ? (
             <FormLabel className="flex items-center gap-1">
               <span>{label}</span>
@@ -56,9 +60,15 @@ export default function ControlledSelect<TFieldValues extends FieldValues>({
             </FormLabel>
           ) : null}
           <FormControl>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select
+              onValueChange={(value) => {
+                field.onChange(value);
+                selectProps.onChange?.(value);
+              }}
+              defaultValue={field.value}
+            >
               <SelectTrigger className={className}>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder="" />
               </SelectTrigger>
               <SelectContent>
                 {selectProps.options.map((option) => (

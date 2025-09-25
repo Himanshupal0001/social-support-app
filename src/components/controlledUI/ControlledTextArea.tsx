@@ -6,30 +6,32 @@ import {
   type UseControllerProps,
   Controller,
 } from 'react-hook-form';
-import { FormControl, FormItem, FormLabel } from '../ui/form';
-import { FormDescription } from '../ui/form';
-import { Textarea } from '../ui/textarea';
+import { FormControl, FormItem, FormLabel } from '@/components/ui/form';
+import { FormDescription } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 
 type TControlledTextAreaProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
   label?: React.ReactNode;
+  renderExtraLabel?: React.ReactNode;
   description?: React.ReactNode;
   textAreaProps: React.ComponentProps<'textarea'>;
   className?: string;
 } & Partial<UseControllerProps<TFieldValues>>;
 
-const ControlledTextArea = ({
+const ControlledTextArea = <TFieldValues extends FieldValues = FieldValues>({
   name,
   control,
   label,
+  renderExtraLabel,
   description,
   className,
   rules,
   disabled,
   defaultValue,
   ...textAreaProps
-}: TControlledTextAreaProps<FieldValues>) => {
+}: TControlledTextAreaProps<TFieldValues>) => {
   return (
     <Controller
       name={name}
@@ -39,16 +41,22 @@ const ControlledTextArea = ({
       disabled={disabled ?? false}
       render={({ field, fieldState }) => (
         <FormItem>
-          {label ? (
-            <FormLabel className="flex items-center gap-1">
-              <span>{label}</span>
-              {rules?.required ? (
-                <span aria-hidden="true" className="text-red-500">
-                  *
-                </span>
-              ) : null}
-            </FormLabel>
-          ) : null}
+          {(label || renderExtraLabel) && (
+            <div className="flex flex-row">
+              {label && (
+                <FormLabel className="flex items-center gap-1">
+                  <span>{label}</span>
+                  {rules?.required ? (
+                    <span aria-hidden="true" className="text-red-500">
+                      *
+                    </span>
+                  ) : null}
+                </FormLabel>
+              )}
+
+              {renderExtraLabel}
+            </div>
+          )}
           <FormControl>
             <Textarea {...textAreaProps} {...field} className={className} />
           </FormControl>

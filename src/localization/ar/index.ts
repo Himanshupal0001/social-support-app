@@ -6,6 +6,15 @@ import { aiHighlights } from './ai-highlights';
 import { testimonials } from './testimonials';
 import { finalCta } from './final-cta';
 import { footer } from './footer';
+import {
+  personalInformation,
+  familyAndFinancialInfo,
+  situationDescriptions,
+  progress,
+  reviewStep,
+  aiModel,
+  mainForm,
+} from './forms';
 
 export const arTranslations = {
   navbar,
@@ -16,4 +25,13 @@ export const arTranslations = {
   testimonials,
   finalCta,
   footer,
+  forms: {
+    personalInformation,
+    familyAndFinancialInfo,
+    situationDescriptions,
+    progress,
+    reviewStep,
+    aiModel,
+    mainForm,
+  },
 };

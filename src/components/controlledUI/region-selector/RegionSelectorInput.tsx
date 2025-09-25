@@ -1,5 +1,5 @@
 // RegionSelectorInput.tsx
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   useWatch,
   useFormContext,
@@ -8,8 +8,9 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from 'react-hook-form';
-import ControlledSelect from '../ControlledSelect';
+import ControlledSelect from '@/components/controlledUI/ControlledSelect';
 import { regionData } from './regionData';
+import { cn } from '@/lib/utils';
 
 type TRegionSelectorInputProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>;
@@ -52,22 +53,9 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
 }: TRegionSelectorInputProps<TFieldValues>) {
   const selectedCountry = useWatch({ control, name: countryField.name });
   const selectedState = useWatch({ control, name: stateField.name });
+  const selectedCity = useWatch({ control, name: cityField.name });
+
   const { setValue } = useFormContext<TFieldValues>();
-
-  // Reset state field when country changes
-  useEffect(() => {
-    if (selectedCountry && selectedCountry !== '') {
-      setValue(stateField.name, '' as TFieldValues[FieldPath<TFieldValues>]);
-      setValue(cityField.name, '' as TFieldValues[FieldPath<TFieldValues>]);
-    }
-  }, [selectedCountry, setValue, stateField.name, cityField.name]);
-
-  // Reset city field when state changes
-  useEffect(() => {
-    if (selectedState && selectedState !== '') {
-      setValue(cityField.name, '' as TFieldValues[FieldPath<TFieldValues>]);
-    }
-  }, [selectedState, setValue, cityField.name]);
 
   // Generate country options from static data
   const countryOptions = Object.entries(regionData).map(([key, val]) => ({
@@ -77,9 +65,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
 
   // Generate state options based on selected country
   const stateOptions =
-    selectedCountry &&
-    selectedCountry !== '' &&
-    regionData[selectedCountry as keyof typeof regionData]
+    selectedCountry && regionData[selectedCountry as keyof typeof regionData]
       ? Object.entries(
           regionData[selectedCountry as keyof typeof regionData].states
         ).map(([key, val]) => ({
@@ -90,13 +76,8 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
 
   // Generate city options based on selected country and state
   const cityOptions = (() => {
-    if (
-      !selectedCountry ||
-      selectedCountry === '' ||
-      !selectedState ||
-      selectedState === ''
-    )
-      return [];
+    if (!selectedCountry) return [];
+    if (!selectedState) return [];
 
     const country = regionData[selectedCountry as keyof typeof regionData];
     if (!country) return [];
@@ -111,60 +92,75 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
   })();
 
   return (
-    <div className={containerClassName || 'space-y-4'}>
-      <ControlledSelect<TFieldValues>
-        name={countryField.name}
-        control={control}
-        label={countryField.label || 'Country'}
-        description={countryField.description}
-        {...(countryField.className && { className: countryField.className })}
-        {...(countryField.rules && { rules: countryField.rules })}
-        {...(countryField.defaultValue !== undefined && {
-          defaultValue: countryField.defaultValue,
-        })}
-        disabled={countryField.disabled ?? false}
-        selectProps={{
-          options: countryOptions,
-        }}
-      />
-      <ControlledSelect<TFieldValues>
-        name={stateField.name}
-        control={control}
-        label={stateField.label || 'State'}
-        description={stateField.description}
-        {...(stateField.className && { className: stateField.className })}
-        {...(stateField.rules && { rules: stateField.rules })}
-        {...(stateField.defaultValue !== undefined && {
-          defaultValue: stateField.defaultValue,
-        })}
-        disabled={
-          stateField.disabled || !selectedCountry || selectedCountry === ''
-        }
-        selectProps={{
-          options: stateOptions,
-        }}
-      />
-      <ControlledSelect<TFieldValues>
-        name={cityField.name}
-        control={control}
-        label={cityField.label || 'City'}
-        description={cityField.description}
-        {...(cityField.className && { className: cityField.className })}
-        {...(cityField.rules && { rules: cityField.rules })}
-        {...(cityField.defaultValue !== undefined && {
-          defaultValue: cityField.defaultValue,
-        })}
-        disabled={
-          cityField.disabled ||
-          !selectedCountry ||
-          selectedCountry === '' ||
-          !selectedState ||
-          selectedState === ''
-        }
-        selectProps={{
-          options: cityOptions,
-        }}
-      />
+    <div className={cn('space-y-4', containerClassName)}>
+      <div className="flex-1">
+        <ControlledSelect<TFieldValues>
+          key={selectedCountry}
+          name={countryField.name}
+          control={control}
+          label={countryField.label || 'Country'}
+          description={countryField.description}
+          {...(countryField.className && { className: countryField.className })}
+          {...(countryField.rules && { rules: countryField.rules })}
+          disabled={countryField.disabled ?? false}
+          selectProps={{
+            options: countryOptions,
+            onChange: (value) => {
+              setValue(stateField.name, '' as any);
+              setValue(cityField.name, '' as any);
+            },
+          }}
+        />
+      </div>
+
+      <div className="flex-1">
+        <ControlledSelect<TFieldValues>
+          key={selectedCountry + selectedState}
+          name={stateField.name}
+          control={control}
+          label={stateField.label || 'State'}
+          description={stateField.description}
+          {...(stateField.className && { className: stateField.className })}
+          {...(stateField.rules && { rules: stateField.rules })}
+          {...(stateField.defaultValue !== undefined && {
+            defaultValue: stateField.defaultValue,
+          })}
+          disabled={
+            stateField.disabled || !selectedCountry || selectedCountry === ''
+          }
+          selectProps={{
+            options: stateOptions,
+            onChange: (value) => {
+              setValue(cityField.name, '' as any);
+            },
+          }}
+        />
+      </div>
+
+      <div className="flex-1">
+        <ControlledSelect<TFieldValues>
+          key={selectedCity}
+          name={cityField.name}
+          control={control}
+          label={cityField.label || 'City'}
+          description={cityField.description}
+          {...(cityField.className && { className: cityField.className })}
+          {...(cityField.rules && { rules: cityField.rules })}
+          {...(cityField.defaultValue !== undefined && {
+            defaultValue: cityField.defaultValue,
+          })}
+          disabled={
+            cityField.disabled ||
+            !selectedCountry ||
+            selectedCountry === '' ||
+            !selectedState ||
+            selectedState === ''
+          }
+          selectProps={{
+            options: cityOptions,
+          }}
+        />
+      </div>
     </div>
   );
 }

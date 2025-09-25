@@ -1,0 +1,76 @@
+import { Button } from '@/components/ui/button';
+import FamilyAndFinancialInfoForm from './FamilyAndFinancialInfoForm';
+import PersonalInformationForm from './PersonalInformationForm';
+import SituationDescriptionsAiHelpForm from './SituationDescriptionsAiHelpForm';
+import useSocialSupportForm from './useSocialSupportForm';
+import { cn } from '@/lib/utils';
+import { Form } from '@/components/ui/form';
+import Progress from './Progress';
+import ReviewStep from './ReviewStep';
+import { useTranslation } from 'react-i18next';
+
+const SocialSupportForm = () => {
+  const {
+    activeStep,
+    formProps,
+    handleClickPrevious,
+    handleClickNext,
+    handleClickSubmit,
+    isFirstStep,
+    isLastStep,
+  } = useSocialSupportForm();
+
+  const { control, setValue } = formProps;
+  const { t } = useTranslation();
+  const buttons = t('forms.mainForm.buttons', { returnObjects: true }) as any;
+
+  return (
+    <>
+      <div className="mb-8">
+        <Progress currentStep={activeStep} />
+      </div>
+
+      <Form {...formProps}>
+        {activeStep === 0 && (
+          <PersonalInformationForm key={0} control={control} />
+        )}
+        {activeStep === 1 && (
+          <FamilyAndFinancialInfoForm key={1} control={control} />
+        )}
+        {activeStep === 2 && (
+          <SituationDescriptionsAiHelpForm
+            key={2}
+            control={control}
+            setValue={setValue}
+          />
+        )}
+        {activeStep === 3 && (
+          <ReviewStep
+            key={3}
+            values={
+              (
+                formProps as { getValues?: () => Record<string, unknown> }
+              ).getValues?.() ?? {}
+            }
+          />
+        )}
+      </Form>
+
+      <div className="flex items-center justify-end p-4 gap-2">
+        <Button
+          variant="outline"
+          className={cn({ hidden: isFirstStep })}
+          onClick={handleClickPrevious}
+        >
+          {buttons.previous}
+        </Button>
+
+        <Button onClick={isLastStep ? handleClickSubmit : handleClickNext}>
+          {isLastStep ? buttons.submit : buttons.next}
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default SocialSupportForm;
