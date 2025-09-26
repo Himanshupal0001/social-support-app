@@ -1,12 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
 import { Home } from 'lucide-react';
 
 const ErrorPage = () => {
-  const navigate = useNavigate();
-
   const handleGoHome = () => {
-    navigate('/');
+    window.location.href = '/';
   };
 
   return (

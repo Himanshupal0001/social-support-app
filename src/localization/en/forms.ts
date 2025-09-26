@@ -169,6 +169,7 @@ export const aiModel: TAIModelTranslation = {
   accept: 'Accept & Use',
   placeholder:
     'Type your text here or use the Generate button to create AI content...',
+  modelHeader: 'AI Writing Assistant',
 };
 
 export const mainForm: TMainFormTranslation = {

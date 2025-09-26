@@ -20,7 +20,7 @@ const SocialSupportForm = () => {
     isLastStep,
   } = useSocialSupportForm();
 
-  const { control, setValue } = formProps;
+  const { control } = formProps;
   const { t } = useTranslation();
   const buttons = t('forms.mainForm.buttons', { returnObjects: true }) as any;
 
@@ -38,11 +38,7 @@ const SocialSupportForm = () => {
           <FamilyAndFinancialInfoForm key={1} control={control} />
         )}
         {activeStep === 2 && (
-          <SituationDescriptionsAiHelpForm
-            key={2}
-            control={control}
-            setValue={setValue}
-          />
+          <SituationDescriptionsAiHelpForm key={2} control={control} />
         )}
         {activeStep === 3 && (
           <ReviewStep

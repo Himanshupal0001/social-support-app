@@ -1,3 +1,4 @@
+import { StorageService } from '@/services/storage-service';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +63,7 @@ const useSocialSupportForm = () => {
     try {
       await new Promise((r) => setTimeout(r, 800));
       // Clear saved storage on success
-      localStorage.removeItem(STORAGE_KEY);
+      StorageService.remove(STORAGE_KEY);
 
       // Show success toast
       toast.success('Application Submitted Successfully!', {
@@ -87,7 +88,7 @@ const useSocialSupportForm = () => {
 
   // Load saved progress
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = StorageService.get(STORAGE_KEY);
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
@@ -110,7 +111,7 @@ const useSocialSupportForm = () => {
         values: true,
       },
       callback: ({ values }) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+        StorageService.set(STORAGE_KEY, JSON.stringify(values));
       },
     });
 

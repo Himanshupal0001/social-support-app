@@ -35,8 +35,9 @@ export default function ControlledSelect<TFieldValues extends FieldValues>({
   rules,
   defaultValue,
   disabled,
-  selectProps,
   className,
+  selectProps,
+  ...rest
 }: TControlledSelectProps<TFieldValues>) {
   const selectedValue = useWatch({ name, control });
 
@@ -66,6 +67,7 @@ export default function ControlledSelect<TFieldValues extends FieldValues>({
                 selectProps.onChange?.(value);
               }}
               defaultValue={field.value}
+              {...rest}
             >
               <SelectTrigger className={className}>
                 <SelectValue placeholder="" />

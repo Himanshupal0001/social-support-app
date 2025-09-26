@@ -1,7 +1,12 @@
 import ControlledTextArea from '@/components/controlledUI/ControlledTextArea';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
-import { useWatch, type Control, type UseFormSetValue } from 'react-hook-form';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import {
+  useWatch,
+  type Control,
+  type UseFormSetValue,
+  useFormContext,
+} from 'react-hook-form';
 import { IoSparklesSharp } from 'react-icons/io5';
 import AIModel from '@/components/AIModel';
 import { OPENAISERVICE } from '@/services/api/open-ai';
@@ -33,7 +38,6 @@ type FormData = {
 
 type TSituationDescriptionsAiHelpFormProps = {
   control: Control<FormData>;
-  setValue: UseFormSetValue<FormData>;
 };
 
 type FieldNames =
@@ -43,17 +47,19 @@ type FieldNames =
 
 const SituationDescriptionsAiHelpForm = ({
   control,
-  setValue,
 }: TSituationDescriptionsAiHelpFormProps) => {
   const [askAiFieldName, setAskAiFieldName] = useState<FieldNames>();
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState('');
   const [aiSuggesstion, setAiSuggesstion] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+
+  const SAMPLE_AI_PHRASE = useRef<string>('');
+
   const { t } = useTranslation();
   const form = t('forms.situationDescriptions', { returnObjects: true }) as any;
+  const { setValue } = useFormContext();
 
-  // Watch all form fields using a more elegant approach
   const fieldValues = useWatch({
     name: [
       'financialSituation',
@@ -66,14 +72,6 @@ const SituationDescriptionsAiHelpForm = ({
   const [financialSituation, employmentCircumstances, reasonForApplying] =
     fieldValues;
 
-  //for ai context
-  const name = useWatch({ name: 'name', control });
-  const employmentStatus = useWatch({ name: 'employmentStatus', control });
-  const dependents = useWatch({ name: 'dependents', control });
-  const maritalStatus = useWatch({ name: 'maritalStatus', control });
-  const housingStatus = useWatch({ name: 'housingStatus', control });
-
-  // Create a lookup object for cleaner field value access
   const fieldValueMap: Record<FieldNames, string> = {
     financialSituation: financialSituation || '',
     employmentCircumstances: employmentCircumstances || '',
@@ -84,28 +82,50 @@ const SituationDescriptionsAiHelpForm = ({
     return fieldValueMap[fieldName];
   };
 
-  let SAMPLE_AI_PHRASE = '';
+  //for ai context
+  const watchValues = useWatch({
+    name: [
+      'name',
+      'dependents',
+      'maritalStatus',
+      'housingStatus',
+      'employmentStatus',
+    ],
+    control,
+  }) as [string, number, string, string, string];
 
+  const [name, dependents, maritalStatus, housingStatus, employmentStatus] =
+    watchValues;
+
+  const getSamplePhrase = (fieldName: FieldNames) => {
+    const phrases = {
+      financialSituation: `I am currently facing financial challenges due to ${employmentStatus}. This has impacted my ability to meet essential expenses including housing, utilities, and daily necessities. I am seeking support through this program to help stabilize my financial situation while I work towards long-term stability.`,
+      employmentCircumstances: `My employment circumstances have been affected by ${employmentStatus}. This situation has created financial instability and challenges in meeting my family's needs. I am applying for support to help bridge this difficult period while I work towards more stable employment.`,
+      reasonForApplying: `I am applying for social support because my current situation with ${employmentStatus} has made it difficult to provide for my ${
+        dependents > 0 ? `${dependents} dependents` : 'family'
+      }. The support would help me maintain stability while working towards long-term financial independence.`,
+    };
+
+    return (
+      phrases[fieldName] ||
+      `I am currently facing ${fieldName} challenges due to ${employmentStatus}. This has impacted my ability to meet essential expenses including housing, utilities, and daily necessities. I am seeking support through this program to help stabilize my financial situation while I work towards long-term stability.`
+    );
+  };
   const handleHelpMeWrite = (fieldName: FieldNames) => {
-    // Get current textarea value
     const currentValue = getCurrentFieldValue(fieldName);
     const hasExistingText = currentValue && currentValue.trim().length > 0;
 
-    SAMPLE_AI_PHRASE = `I am currently facing ${fieldName} challenges due to ${employmentStatus}. This has impacted my ability to meet essential expenses including housing,utilities, and daily necessities. I am seeking support through this program to help stabilize my financial situation while I work towards long-term stability.`;
+    SAMPLE_AI_PHRASE.current = getSamplePhrase(fieldName);
 
-    // Open dialog and set up initial state
     setAskAiFieldName(fieldName);
     setAiLoading(false);
     setAiError('');
-    setIsEditing(false); // Start in read-only mode
+    setIsEditing(false);
 
-    // Set initial content based on whether textarea has content
     if (hasExistingText) {
-      // Show existing text for editing
       setAiSuggesstion(currentValue);
     } else {
-      // Show default prompt for empty textarea
-      setAiSuggesstion(SAMPLE_AI_PHRASE);
+      setAiSuggesstion(SAMPLE_AI_PHRASE.current);
     }
   };
 
@@ -115,7 +135,6 @@ const SituationDescriptionsAiHelpForm = ({
     setAiLoading(true);
     setAiError('');
 
-    // Prepare context for AI
     const contextSnippet = [
       `Name: ${name || '(unknown)'}`,
       `Dependents: ${dependents || '(unknown)'}`,
@@ -135,7 +154,7 @@ const SituationDescriptionsAiHelpForm = ({
 
     // Use current dialog text as context if user has edited it
     const userPrompt =
-      aiSuggesstion && aiSuggesstion !== SAMPLE_AI_PHRASE
+      aiSuggesstion && aiSuggesstion !== SAMPLE_AI_PHRASE.current
         ? `Based on this context: "${aiSuggesstion}", write a clear, empathetic paragraph for: ${fieldLabel} with the following context: ${contextSnippet}. Keep it between 60-180 words, respectful, and professional.`
         : prompt;
 
@@ -146,7 +165,8 @@ const SituationDescriptionsAiHelpForm = ({
       );
       setAiSuggesstion(result.choices[0].message.content);
       setAiLoading(false);
-    } catch {
+    } catch (error) {
+      console.warn('error:', error);
       setAiLoading(false);
       setAiError('Network error. Please try again.');
     }
@@ -176,7 +196,6 @@ const SituationDescriptionsAiHelpForm = ({
     resetAiFields();
   };
 
-  //trigger api call on model open
   useEffect(() => {
     if (askAiFieldName) {
       handleGenerateResponse();
