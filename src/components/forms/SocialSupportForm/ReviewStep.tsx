@@ -1,5 +1,4 @@
-import { cn } from '@/lib/utils';
-import { FormField } from '@/components/ui/form';
+import { formatToSimpleDate } from '@/lib/helpers';
 
 type Props = {
   values: Record<string, unknown>;
@@ -13,8 +12,8 @@ const prettyLabel = (key: string) => {
 };
 
 export default function ReviewStep({ values }: Props) {
-  const entries = Object.entries(values ?? {});
-
+  const formattedValues = formatValues(values);
+  const entries = Object.entries(formattedValues ?? {});
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -34,3 +33,9 @@ export default function ReviewStep({ values }: Props) {
     </div>
   );
 }
+const formatValues = (values: any) => {
+  return {
+    ...values,
+    dateOfBirth: formatToSimpleDate(values.dateOfBirth),
+  };
+};

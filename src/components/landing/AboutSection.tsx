@@ -5,11 +5,11 @@ export default function AboutSection() {
   const { t } = useTranslation();
   return (
     <section className="relative overflow-hidden" id="about">
-      <div className="container mx-auto px-6 py-12 md:py-32">
+      <div className="container mx-auto px-6 py-6 md:py-32">
         <div className="grid items-start md:items-center gap-6 md:gap-10 md:grid-cols-2">
           {/* Left*/}
           <div className="flex flex-col gap-3 md:gap-4">
-            <h2 className="text-3xl md:text-5xl font-bold">
+            <h2 className="text-3xl md:text-5xl font-bold text-center md:text-left">
               {t('aboutSection.title')}
             </h2>
             <p className="text-justify text-muted-foreground max-w-3xl">

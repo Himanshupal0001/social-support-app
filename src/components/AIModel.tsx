@@ -68,7 +68,7 @@ const AIModel = ({
               <div className="rounded-lg border p-3 sm:p-4 bg-muted/50 flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs sm:text-sm font-medium text-muted-foreground">
-                    AI Writing Assistant
+                    {aiModel.modelHeader}
                   </span>
                   <div className="flex items-center gap-2">
                     {!isEditing &&
@@ -118,15 +118,15 @@ const AIModel = ({
                   onClick={handleClickDiscard}
                   className="w-full sm:w-auto order-2 sm:order-1"
                 >
-                  <X className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   <span className="text-xs sm:text-sm">{aiModel.discard}</span>
+                  <X className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                 </Button>
                 <Button
                   onClick={handleAccept}
                   className="w-full sm:w-auto order-1 sm:order-2"
                 >
-                  <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   <span className="text-xs sm:text-sm">{aiModel.accept}</span>
+                  <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                 </Button>
               </div>
             </div>

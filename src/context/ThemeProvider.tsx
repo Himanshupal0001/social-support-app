@@ -27,10 +27,8 @@ export function ThemeProvider({
   storageKey = 'ui-theme',
   ...props
 }: ThemeProviderProps) {
-  const storageService = StorageService;
-  const [theme, setTheme] = useState<Theme>(
-    () => (storageService.get(storageKey) as Theme) || defaultTheme
-  );
+  const [theme, setTheme] =
+    useState<Theme>(StorageService.get(storageKey) as Theme) || defaultTheme;
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -53,7 +51,7 @@ export function ThemeProvider({
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      storageService.set(storageKey, theme);
+      StorageService.set(storageKey, theme);
       setTheme(theme);
     },
   };

@@ -158,6 +158,7 @@ export type TAIModelTranslation = {
   discard: string;
   accept: string;
   placeholder: string;
+  modelHeader: string;
 };
 
 export type TMainFormTranslation = {
