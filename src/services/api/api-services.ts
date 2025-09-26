@@ -12,9 +12,18 @@ const getInstance = () => {
     },
   });
 
-  instance.interceptors.request.use((config) => {
-    return config;
-  });
+  instance.interceptors.request.use(
+    (config) => {
+      const token = accessToken;
+      if (token) {
+        console.log('valid key');
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   if (window && window.location) {
     instance.interceptors.response.use(
