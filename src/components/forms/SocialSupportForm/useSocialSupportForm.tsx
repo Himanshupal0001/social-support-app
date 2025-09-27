@@ -53,7 +53,29 @@ const useSocialSupportForm = () => {
     let isValid = false;
     await formProps.handleSubmit(() => (isValid = true))();
 
-    if (isValid) setActiveStep((previousValue) => previousValue + 1);
+    // if (isValid) setActiveStep((previousValue) => previousValue + 1);
+    if (isValid) {
+      const nextStep = activeStep + 1;
+      setActiveStep(nextStep);
+
+      //save data
+      const currentFormValues = formProps.getValues();
+      const saved = StorageService.get(STORAGE_KEY);
+      const parsed = saved ? JSON.parse(saved) : {};
+
+      const validSteps = Array.isArray(parsed.validSteps)
+        ? Array.from(new Set([...parsed.validSteps, activeStep]))
+        : [activeStep];
+
+      StorageService.set(
+        STORAGE_KEY,
+        JSON.stringify({
+          ...currentFormValues,
+          currentStep: nextStep,
+          validSteps,
+        })
+      );
+    }
   };
 
   const handleClickSubmit = () => formProps.handleSubmit(handleFormSubmit)();
@@ -99,6 +121,13 @@ const useSocialSupportForm = () => {
             ? new Date(parsed.dateOfBirth)
             : undefined,
         });
+        if (
+          typeof parsed.currentStep === 'number' &&
+          parsed.currentStep >= 0 &&
+          parsed.currentStep < SOCIAL_SUPPORT_FORM_TOTAL_STEPS
+        ) {
+          setActiveStep(parsed.currentStep);
+        }
       } catch (e) {
         console.warn('Failed to parse saved form data', e);
       }
@@ -111,12 +140,13 @@ const useSocialSupportForm = () => {
         values: true,
       },
       callback: ({ values }) => {
-        StorageService.set(STORAGE_KEY, JSON.stringify(values));
+        const formValues = { ...values, currentStep: activeStep };
+        StorageService.set(STORAGE_KEY, JSON.stringify(formValues));
       },
     });
 
     return () => callback();
-  }, [subscribe]);
+  }, [subscribe, activeStep]);
 
   return {
     activeStep,

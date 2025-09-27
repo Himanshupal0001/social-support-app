@@ -1,12 +1,7 @@
 import ControlledTextArea from '@/components/controlledUI/ControlledTextArea';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import {
-  useWatch,
-  type Control,
-  type UseFormSetValue,
-  useFormContext,
-} from 'react-hook-form';
+import { useWatch, type Control, useFormContext } from 'react-hook-form';
 import { IoSparklesSharp } from 'react-icons/io5';
 import AIModel from '@/components/AIModel';
 import { OPENAISERVICE } from '@/services/api/open-ai';
@@ -57,7 +52,17 @@ const SituationDescriptionsAiHelpForm = ({
   const SAMPLE_AI_PHRASE = useRef<string>('');
 
   const { t } = useTranslation();
-  const form = t('forms.situationDescriptions', { returnObjects: true }) as any;
+  const form = t('forms.situationDescriptions', {
+    returnObjects: true,
+  }) as Record<
+    string,
+    {
+      label: string;
+      helpMeWrite: string;
+      required: string;
+      placeholder: string;
+    }
+  >;
   const { setValue } = useFormContext();
 
   const fieldValues = useWatch({
@@ -129,7 +134,7 @@ const SituationDescriptionsAiHelpForm = ({
     }
   };
 
-  const handleGenerateResponse = async () => {
+  const handleGenerateResponse = useCallback(async () => {
     if (!askAiFieldName) return;
 
     setAiLoading(true);
@@ -155,7 +160,7 @@ const SituationDescriptionsAiHelpForm = ({
     // Use current dialog text as context if user has edited it
     const userPrompt =
       aiSuggesstion && aiSuggesstion !== SAMPLE_AI_PHRASE.current
-        ? `Based on this context: "${aiSuggesstion}", write a clear, empathetic paragraph for: ${fieldLabel} with the following context: ${contextSnippet}. Keep it between 60-180 words, respectful, and professional.`
+        ? `Based on this context: "${aiSuggesstion}", write a clear, empathetic paragraph for: ${fieldLabel} with the following context: ${contextSnippet}. Keep it between 60-180 words, respectful, and professional. If the given context is not related to the ${fieldLabel} or related to the user's personal situation, politely redirect the user by saying:""`
         : prompt;
 
     try {
@@ -170,7 +175,16 @@ const SituationDescriptionsAiHelpForm = ({
       setAiLoading(false);
       setAiError('Network error. Please try again.');
     }
-  };
+  }, [
+    askAiFieldName,
+    aiSuggesstion,
+    SAMPLE_AI_PHRASE,
+    name,
+    dependents,
+    maritalStatus,
+    housingStatus,
+    employmentStatus,
+  ]);
 
   const handleClickDiscard = () => {
     if (!askAiFieldName) return;
@@ -200,7 +214,7 @@ const SituationDescriptionsAiHelpForm = ({
     if (askAiFieldName) {
       handleGenerateResponse();
     }
-  }, [askAiFieldName]);
+  }, [askAiFieldName, handleGenerateResponse]);
 
   return (
     <>
@@ -209,7 +223,7 @@ const SituationDescriptionsAiHelpForm = ({
           <ControlledTextArea
             name="financialSituation"
             control={control}
-            label={form.financialSituation.label}
+            label={form['financialSituation'].label}
             renderExtraLabel={
               <div className="flex flex-1 flex-row justify-end">
                 <Button
@@ -218,15 +232,15 @@ const SituationDescriptionsAiHelpForm = ({
                   onClick={() => handleHelpMeWrite('financialSituation')}
                 >
                   <IoSparklesSharp className="text-primary" />{' '}
-                  {form.financialSituation.helpMeWrite}
+                  {form['financialSituation'].helpMeWrite}
                 </Button>
               </div>
             }
             rules={{
-              required: form.financialSituation.required,
+              required: form['financialSituation'].required,
             }}
             textAreaProps={{
-              placeholder: form.financialSituation.placeholder,
+              placeholder: form['financialSituation'].placeholder,
               maxLength: 500,
             }}
             className="w-full"
@@ -237,7 +251,7 @@ const SituationDescriptionsAiHelpForm = ({
           <ControlledTextArea
             name="employmentCircumstances"
             control={control}
-            label={form.employmentCircumstances.label}
+            label={form['employmentCircumstances'].label}
             renderExtraLabel={
               <div className="flex flex-1 flex-row justify-end">
                 <Button
@@ -246,15 +260,15 @@ const SituationDescriptionsAiHelpForm = ({
                   onClick={() => handleHelpMeWrite('employmentCircumstances')}
                 >
                   <IoSparklesSharp className="text-primary" />{' '}
-                  {form.employmentCircumstances.helpMeWrite}
+                  {form['employmentCircumstances'].helpMeWrite}
                 </Button>
               </div>
             }
             rules={{
-              required: form.employmentCircumstances.required,
+              required: form['employmentCircumstances'].required,
             }}
             textAreaProps={{
-              placeholder: form.employmentCircumstances.placeholder,
+              placeholder: form['employmentCircumstances'].placeholder,
               maxLength: 500,
             }}
             className="w-full"
@@ -265,7 +279,7 @@ const SituationDescriptionsAiHelpForm = ({
           <ControlledTextArea
             name="reasonForApplying"
             control={control}
-            label={form.reasonForApplying.label}
+            label={form['reasonForApplying'].label}
             renderExtraLabel={
               <div className="flex flex-1 flex-row justify-end">
                 <Button
@@ -274,15 +288,15 @@ const SituationDescriptionsAiHelpForm = ({
                   onClick={() => handleHelpMeWrite('reasonForApplying')}
                 >
                   <IoSparklesSharp className="text-primary" />{' '}
-                  {form.reasonForApplying.helpMeWrite}
+                  {form['reasonForApplying'].helpMeWrite}
                 </Button>
               </div>
             }
             rules={{
-              required: form.reasonForApplying.required,
+              required: form['reasonForApplying'].required,
             }}
             textAreaProps={{
-              placeholder: form.reasonForApplying.placeholder,
+              placeholder: form['reasonForApplying'].placeholder,
               maxLength: 500,
             }}
             className="w-full"
