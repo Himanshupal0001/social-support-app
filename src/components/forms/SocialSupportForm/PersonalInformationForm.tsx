@@ -4,15 +4,29 @@ import ControlledPhoneNumberInput from '@/components/controlledUI/ControlledPhon
 import ControlledSelect from '@/components/controlledUI/ControlledSelect';
 import ControlledTextArea from '@/components/controlledUI/ControlledTextArea';
 import RegionSelectorInput from '@/components/controlledUI/region-selector/RegionSelectorInput';
+import type { TPersonalInformationFormTranslation } from '@/localization/types/forms';
+import { useWatch, type Control, type FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import {
+  GENDER_OPTIONS,
+  NATIONAL_ID_OPTIONS,
+  PERSONAL_INFO_CONSTANTS,
+} from '@/lib/enums/social-form-enum';
 
 type Props = {
-  control: any;
+  control: Control<FieldValues>;
 };
 
 const PersonalInformationForm = ({ control }: Props) => {
+  const [state, country] = useWatch({
+    control,
+    name: ['state', 'country'],
+  });
+
   const { t } = useTranslation();
-  const form = t('forms.personalInformation', { returnObjects: true }) as any;
+  const form = t('forms.personalInformation', {
+    returnObjects: true,
+  }) as TPersonalInformationFormTranslation;
 
   return (
     <div className="space-y-4">
@@ -25,10 +39,13 @@ const PersonalInformationForm = ({ control }: Props) => {
             rules={{
               required: { value: true, message: form.name.required },
               minLength: {
-                value: 3,
+                value: PERSONAL_INFO_CONSTANTS.NAME_MIN_LENGTH,
                 message: form.name.minLength,
               },
-              maxLength: { value: 100, message: form.name.maxLength },
+              maxLength: {
+                value: PERSONAL_INFO_CONSTANTS.NAME_MAX_LENGTH,
+                message: form.name.maxLength,
+              },
             }}
             placeholder={form.name.placeholder}
           />
@@ -44,13 +61,12 @@ const PersonalInformationForm = ({ control }: Props) => {
             }}
             className="w-full"
             selectProps={{
-              options: [
-                { value: 'passport', label: form.nationalId.options.passport },
-                {
-                  value: 'familyBook',
-                  label: form.nationalId.options.familyBook,
-                },
-              ],
+              options: Object.entries(NATIONAL_ID_OPTIONS).map(
+                ([value, labelKey]) => ({
+                  value,
+                  label: t(`forms.personalInformation.${labelKey}`),
+                })
+              ),
             }}
           />
         </div>
@@ -78,11 +94,12 @@ const PersonalInformationForm = ({ control }: Props) => {
               required: form.gender.required,
             }}
             selectProps={{
-              options: [
-                { value: 'male', label: form.gender.options.male },
-                { value: 'female', label: form.gender.options.female },
-                { value: 'other', label: form.gender.options.other },
-              ],
+              options: Object.entries(GENDER_OPTIONS).map(
+                ([value, labelKey]) => ({
+                  value,
+                  label: t(`forms.personalInformation.${labelKey}`),
+                })
+              ),
             }}
             className="w-full"
           />
@@ -98,7 +115,7 @@ const PersonalInformationForm = ({ control }: Props) => {
         }}
         textAreaProps={{
           placeholder: form.address.placeholder,
-          maxLength: 500,
+          maxLength: PERSONAL_INFO_CONSTANTS.ADDRESS_MAX_LENGTH,
         }}
         className="w-full"
       />
@@ -108,13 +125,29 @@ const PersonalInformationForm = ({ control }: Props) => {
         cityField={{
           name: 'city',
           label: form.city.label,
-          rules: { required: { value: true, message: form.city.required } },
+          rules: {
+            required: { value: true, message: form.city.required },
+            validate: () => {
+              if (!state || !country) {
+                return form.city.required;
+              }
+              return true;
+            },
+          },
           className: 'w-full',
         }}
         stateField={{
           name: 'state',
           label: form.state.label,
-          rules: { required: { value: true, message: form.state.required } },
+          rules: {
+            required: { value: true, message: form.state.required },
+            validate: () => {
+              if (!country) {
+                return form.state.required;
+              }
+              return true;
+            },
+          },
           className: 'w-full',
         }}
         countryField={{
@@ -136,8 +169,13 @@ const PersonalInformationForm = ({ control }: Props) => {
             label={form.phoneNumber.label}
             rules={{
               required: form.phoneNumber.required,
+              pattern: {
+                value: PERSONAL_INFO_CONSTANTS.PHONE_PATTERN,
+                message: form.phoneNumber.required,
+              },
             }}
-            defaultCountry="AE"
+            defaultCountry={PERSONAL_INFO_CONSTANTS.DEFAULT_COUNTRY}
+            type="phone"
           />
         </div>
 
@@ -148,6 +186,10 @@ const PersonalInformationForm = ({ control }: Props) => {
             label={form.email.label}
             rules={{
               required: form.email.required,
+              pattern: {
+                value: PERSONAL_INFO_CONSTANTS.EMAIL_PATTERN,
+                message: form.email.required,
+              },
             }}
             type="email"
           />

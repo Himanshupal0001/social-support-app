@@ -8,6 +8,7 @@ import { Form } from '@/components/ui/form';
 import Progress from './Progress';
 import ReviewStep from './ReviewStep';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 const SocialSupportForm = () => {
   const {
@@ -16,13 +17,24 @@ const SocialSupportForm = () => {
     handleClickPrevious,
     handleClickNext,
     handleClickSubmit,
+    handleEditSection,
     isFirstStep,
     isLastStep,
   } = useSocialSupportForm();
 
   const { control } = formProps;
   const { t } = useTranslation();
-  const buttons = t('forms.mainForm.buttons', { returnObjects: true }) as any;
+  const buttons = t('forms.mainForm.buttons', {
+    returnObjects: true,
+  });
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [activeStep]);
 
   return (
     <>
@@ -43,11 +55,8 @@ const SocialSupportForm = () => {
         {activeStep === 3 && (
           <ReviewStep
             key={3}
-            values={
-              (
-                formProps as { getValues?: () => Record<string, unknown> }
-              ).getValues?.() ?? {}
-            }
+            values={formProps.getValues?.() ?? {}}
+            onEdit={handleEditSection}
           />
         )}
       </Form>

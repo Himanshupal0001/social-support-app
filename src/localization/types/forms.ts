@@ -1,4 +1,5 @@
 export type TPersonalInformationFormTranslation = {
+  sectionTitle: string;
   name: {
     label: string;
     placeholder: string;
@@ -56,6 +57,7 @@ export type TPersonalInformationFormTranslation = {
 };
 
 export type TFamilyAndFinancialInfoFormTranslation = {
+  sectionTitle: string;
   maritalStatus: {
     label: string;
     required: string;
@@ -115,6 +117,7 @@ export type TFamilyAndFinancialInfoFormTranslation = {
 };
 
 export type TSituationDescriptionsFormTranslation = {
+  sectionTitle: string;
   financialSituation: {
     label: string;
     required: string;
@@ -167,6 +170,24 @@ export type TMainFormTranslation = {
     next: string;
     submit: string;
   };
+  editButton: string;
+};
+
+export type TToastMessagesTranslation = {
+  success: {
+    message: string;
+    description: string;
+  };
+  error: {
+    message: string;
+    description: string;
+  };
+};
+
+export type TUIComponentsTranslation = {
+  datePicker: {
+    pickDate: string;
+  };
 };
 
 export type TFormsTranslation = {
@@ -177,4 +198,6 @@ export type TFormsTranslation = {
   reviewStep: TReviewStepTranslation;
   aiModel: TAIModelTranslation;
   mainForm: TMainFormTranslation;
+  toastMessages: TToastMessagesTranslation;
+  uiComponents: TUIComponentsTranslation;
 };

@@ -9,6 +9,7 @@ import type {
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
+  sectionTitle: 'شخصي',
   name: {
     label: 'الاسم',
     placeholder: 'أدخل اسمك الكامل',
@@ -57,15 +58,16 @@ export const personalInformation: TPersonalInformationFormTranslation = {
   },
   phoneNumber: {
     label: 'رقم الهاتف',
-    required: 'رقم الهاتف مطلوب',
+    required: 'رقم هاتف صالح مطلوب',
   },
   email: {
     label: 'البريد الإلكتروني',
-    required: 'البريد الإلكتروني مطلوب',
+    required: 'بريد إلكتروني صالح مطلوب',
   },
 };
 
 export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
+  sectionTitle: 'معلومات الأسرة والمالية',
   maritalStatus: {
     label: 'الحالة الاجتماعية',
     required: 'الحالة الاجتماعية مطلوبة',
@@ -125,6 +127,7 @@ export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
 };
 
 export const situationDescriptions: TSituationDescriptionsFormTranslation = {
+  sectionTitle: 'وصف الحالة',
   financialSituation: {
     label: 'الوضع المالي الحالي',
     required: 'وصف الوضع المالي مطلوب',
@@ -177,5 +180,26 @@ export const mainForm: TMainFormTranslation = {
     previous: 'السابق',
     next: 'التالي',
     submit: 'إرسال',
+  },
+  editButton: 'تعديل',
+};
+
+// Toast messages
+export const toastMessages = {
+  success: {
+    message: 'تم إرسال الطلب بنجاح!',
+    description:
+      'تم إرسال طلب الدعم الاجتماعي الخاص بك. سنراجعه وسنعود إليك قريباً.',
+  },
+  error: {
+    message: 'فشل في الإرسال',
+    description: 'حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى لاحقاً.',
+  },
+};
+
+// UI Components
+export const uiComponents = {
+  datePicker: {
+    pickDate: 'اختر التاريخ',
   },
 };

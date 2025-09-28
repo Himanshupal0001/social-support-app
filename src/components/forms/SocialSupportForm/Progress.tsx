@@ -8,7 +8,14 @@ type TStepperProps = {
 
 const Progress = ({ currentStep }: TStepperProps) => {
   const { t } = useTranslation();
-  const progress = t('forms.progress', { returnObjects: true }) as any;
+  const progress = t('forms.progress', { returnObjects: true }) as {
+    steps: {
+      personalInfo: string;
+      familyFinancialInfo: string;
+      describeSituation: string;
+      reviewSubmit: string;
+    };
+  };
 
   const STEPS = [
     {
@@ -33,7 +40,6 @@ const Progress = ({ currentStep }: TStepperProps) => {
 
   return (
     <div className="w-1/2 max-w-xl mx-auto">
-      {/* Progress track */}
       <div className="relative h-2 bg-secondary rounded-full">
         <div
           className="absolute left-0 top-0 h-2 bg-primary rounded-full transition-[width] duration-300 ease-in-out"
@@ -41,7 +47,6 @@ const Progress = ({ currentStep }: TStepperProps) => {
         />
       </div>
 
-      {/* Step indicators and labels */}
       <div className="mt-4 flex items-center justify-between">
         {STEPS.map((step, index) => (
           <div key={index} className="flex items-center gap-2">
@@ -66,7 +71,9 @@ const StepLabel = ({
   stepNumber: number;
 }) => {
   const { t } = useTranslation();
-  const progress = t('forms.progress', { returnObjects: true }) as any;
+  const progress = t('forms.progress', { returnObjects: true }) as {
+    stepLabel: string;
+  };
 
   return (
     <div className="md:flex md:flex-col hidden ">

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import i18n from '@/localization/i18n';
 import { StorageService } from '@/services/storage-service';
-import { EStorageKey } from '@/types/enum';
 import {
   Select,
   SelectContent,
@@ -9,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { EStorageKey } from '@/lib/enums/enum';
 
 type SupportedLanguageCode = 'en' | 'ar';
 

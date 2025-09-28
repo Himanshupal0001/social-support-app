@@ -6,6 +6,7 @@ import { aiHighlights } from './ai-highlights';
 import { testimonials } from './testimonials';
 import { finalCta } from './final-cta';
 import { footer } from './footer';
+import { applyPage } from './apply-page';
 import {
   personalInformation,
   familyAndFinancialInfo,
@@ -14,6 +15,8 @@ import {
   reviewStep,
   aiModel,
   mainForm,
+  toastMessages,
+  uiComponents,
 } from './forms';
 export const enTranslations = {
   navbar,
@@ -24,6 +27,7 @@ export const enTranslations = {
   testimonials,
   finalCta,
   footer,
+  applyPage,
   forms: {
     personalInformation,
     familyAndFinancialInfo,
@@ -32,5 +36,7 @@ export const enTranslations = {
     reviewStep,
     aiModel,
     mainForm,
+    toastMessages,
+    uiComponents,
   },
 };

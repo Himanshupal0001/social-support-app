@@ -7,6 +7,7 @@ import type { TTestimonialsTranslation } from './testimonials';
 import type { TFinalCtaTranslation } from './final-cta';
 import type { TFooterTranslation } from './footer';
 import type { TFormsTranslation } from './forms';
+import type { TApplyPageTranslation } from './apply-page';
 
 export type TAppTranslation = {
   navbar: TNavbarTranslation;
@@ -18,4 +19,5 @@ export type TAppTranslation = {
   finalCta: TFinalCtaTranslation;
   footer: TFooterTranslation;
   forms: TFormsTranslation;
+  applyPage: TApplyPageTranslation;
 };

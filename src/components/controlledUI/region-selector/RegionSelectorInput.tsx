@@ -125,11 +125,11 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           {...(stateField.defaultValue !== undefined && {
             defaultValue: stateField.defaultValue,
           })}
-          disabled={
-            stateField.disabled || !selectedCountry || selectedCountry === ''
-          }
+          // disabled={
+          //   stateField.disabled || !selectedCountry || selectedCountry === ''
+          // }
           selectProps={{
-            options: stateOptions,
+            options: selectedCountry ? stateOptions : [],
             onChange: (value) => {
               setValue(cityField.name, '' as any);
             },
@@ -149,13 +149,13 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           {...(cityField.defaultValue !== undefined && {
             defaultValue: cityField.defaultValue,
           })}
-          disabled={
-            cityField.disabled ||
-            !selectedCountry ||
-            selectedCountry === '' ||
-            !selectedState ||
-            selectedState === ''
-          }
+          // disabled={
+          //   cityField.disabled ||
+          //   !selectedCountry ||
+          //   selectedCountry === '' ||
+          //   !selectedState ||
+          //   selectedState === ''
+          // }
           selectProps={{
             options: cityOptions,
           }}

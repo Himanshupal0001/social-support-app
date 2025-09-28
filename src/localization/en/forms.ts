@@ -9,6 +9,7 @@ import type {
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
+  sectionTitle: 'Personal',
   name: {
     label: 'Name',
     placeholder: 'Enter your full name',
@@ -57,15 +58,16 @@ export const personalInformation: TPersonalInformationFormTranslation = {
   },
   phoneNumber: {
     label: 'Phone Number',
-    required: 'Phone Number is required',
+    required: 'Valid phone number is required',
   },
   email: {
     label: 'Email',
-    required: 'Email is required',
+    required: 'Valid email is required',
   },
 };
 
 export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
+  sectionTitle: 'Family & Financial Information',
   maritalStatus: {
     label: 'Marital Status',
     required: 'Marital Status is required',
@@ -125,6 +127,7 @@ export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
 };
 
 export const situationDescriptions: TSituationDescriptionsFormTranslation = {
+  sectionTitle: 'Situation Description',
   financialSituation: {
     label: 'Current Financial Situation',
     required: 'Financial situation description is required',
@@ -177,5 +180,27 @@ export const mainForm: TMainFormTranslation = {
     previous: 'Previous',
     next: 'Next',
     submit: 'Submit',
+  },
+  editButton: 'Edit',
+};
+
+// Toast messages
+export const toastMessages = {
+  success: {
+    message: 'Application Submitted Successfully!',
+    description:
+      'Your social support application has been submitted. We will review it and get back to you soon.',
+  },
+  error: {
+    message: 'Submission Failed',
+    description:
+      'There was an error submitting your application. Please try again later.',
+  },
+};
+
+// UI Components
+export const uiComponents = {
+  datePicker: {
+    pickDate: 'Pick a date',
   },
 };
