@@ -204,3 +204,81 @@ export const uiComponents = {
     pickDate: 'Pick a date',
   },
 };
+
+// Regions (countries, states, cities)
+export const region = {
+  countries: {
+    uae: 'United Arab Emirates',
+    saudi: 'Saudi Arabia',
+    qatar: 'Qatar',
+    oman: 'Oman',
+  },
+  states: {
+    uae: {
+      dubai: 'Dubai',
+      abu_dhabi: 'Abu Dhabi',
+    },
+    saudi: {
+      riyadh: 'Riyadh',
+      jeddah: 'Jeddah',
+    },
+    qatar: {
+      doha: 'Doha',
+      al_rayyan: 'Al Rayyan',
+    },
+    oman: {
+      muscat: 'Muscat',
+      salalah: 'Salalah',
+    },
+  },
+  cities: {
+    uae: {
+      dubai: {
+        deira: 'Deira',
+        jumeirah: 'Jumeirah',
+        bur_dubai: 'Bur Dubai',
+      },
+      abu_dhabi: {
+        al_ain: 'Al Ain',
+        madinat_zayed: 'Madinat Zayed',
+        ruwais: 'Ruwais',
+      },
+    },
+    saudi: {
+      riyadh: {
+        al_malaz: 'Al Malaz',
+        al_olaya: 'Al Olaya',
+        al_batha: 'Al Batha',
+      },
+      jeddah: {
+        al_balad: 'Al Balad',
+        al_hamra: 'Al Hamra',
+        al_safa: 'Al Safa',
+      },
+    },
+    qatar: {
+      doha: {
+        al_sadd: 'Al Sadd',
+        west_bay: 'West Bay',
+        the_pearl: 'The Pearl',
+      },
+      al_rayyan: {
+        al_gharrafa: 'Al Gharrafa',
+        education_city: 'Education City',
+        muaither: 'Muaither',
+      },
+    },
+    oman: {
+      muscat: {
+        ruwi: 'Ruwi',
+        muttrah: 'Muttrah',
+        al_khuwair: 'Al Khuwair',
+      },
+      salalah: {
+        al_haffa: 'Al Haffa',
+        al_wadi: 'Al Wadi',
+        salalah_gardens: 'Salalah Gardens',
+      },
+    },
+  },
+} as const;

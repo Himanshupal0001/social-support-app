@@ -48,7 +48,7 @@ export enum SECTION_KEYS {
 }
 
 export enum SECTION_TITLES {
-  PERSONAL = 'Personal',
+  PERSONAL = 'Personal Information',
   FINANCIAL = 'Family & Financial Information',
   SITUATION = 'Situation Description',
 }
@@ -83,6 +83,27 @@ export const TOAST_MESSAGES = {
 // ============================================================================
 // PERSONAL INFORMATION FORM
 // ============================================================================
+
+export enum TFFIELD_NAME {
+  name = 'name',
+  nationalId = 'nationalId',
+  dateOfBirth = 'dateOfBirth',
+  gender = 'gender',
+  address = 'address',
+  city = 'city',
+  state = 'state',
+  country = 'country',
+  phoneNumber = 'phoneNumber',
+  email = 'email',
+  dependents = 'dependents',
+  maritalStatus = 'maritalStatus',
+  employmentStatus = 'employmentStatus',
+  monthlyIncome = 'monthlyIncome',
+  housingStatus = 'housingStatus',
+  financialSituation = 'financialSituation',
+  employmentCircumstances = 'employmentCircumstances',
+  reasonForApplying = 'reasonForApplying',
+}
 
 export const GENDER_OPTIONS = {
   [Gender.MALE]: 'gender.options.male',
@@ -136,12 +157,12 @@ export const EMPLOYMENT_STATUS_OPTIONS = {
 } as const;
 
 export const MONTHLY_INCOME_OPTIONS = {
-  NONE: 'monthlyIncome.options.none',
-  RANGE_1: 'monthlyIncome.options.range1',
-  RANGE_2: 'monthlyIncome.options.range2',
-  RANGE_3: 'monthlyIncome.options.range3',
-  RANGE_4: 'monthlyIncome.options.range4',
-  RANGE_5: 'monthlyIncome.options.range5',
+  'monthlyIncome.options.none': 'monthlyIncome.options.none',
+  'monthlyIncome.options.range1': 'monthlyIncome.options.range1',
+  'monthlyIncome.options.range2': 'monthlyIncome.options.range2',
+  'monthlyIncome.options.range3': 'monthlyIncome.options.range3',
+  'monthlyIncome.options.range4': 'monthlyIncome.options.range4',
+  'monthlyIncome.options.range5': 'monthlyIncome.options.range5',
 } as const;
 
 export const HOUSING_STATUS_OPTIONS = {

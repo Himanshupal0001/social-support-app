@@ -105,6 +105,7 @@ const ControlledCurrencySelect = ({
                   <Select
                     key={field?.value?.range}
                     onValueChange={(range) => {
+                      console.log('range', range);
                       const values = { ...field?.value, range };
                       field.onChange(values);
                       if (field?.value?.currency && field?.value?.range) {
@@ -112,11 +113,7 @@ const ControlledCurrencySelect = ({
                       }
                     }}
                     defaultValue={field?.value}
-                    disabled={
-                      field?.value?.currency === undefined ||
-                      field?.value?.currency === '' ||
-                      (disabled ?? false)
-                    }
+                    disabled={false}
                     required={true}
                     value={field?.value?.range}
                   >

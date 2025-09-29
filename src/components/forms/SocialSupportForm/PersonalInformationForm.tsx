@@ -12,6 +12,7 @@ import {
   NATIONAL_ID_OPTIONS,
   PERSONAL_INFO_CONSTANTS,
 } from '@/lib/enums/social-form-enum';
+import { TFFIELD_NAME } from '@/lib/enums/social-form-enum';
 
 type Props = {
   control: Control<FieldValues>;
@@ -33,7 +34,7 @@ const PersonalInformationForm = ({ control }: Props) => {
       <div className="space-y-4 md:flex md:flex-row md:space-x-4">
         <div className="flex-1">
           <ControlledInput
-            name="name"
+            name={TFFIELD_NAME.name}
             control={control}
             label={form.name.label}
             rules={{
@@ -53,7 +54,7 @@ const PersonalInformationForm = ({ control }: Props) => {
 
         <div className="flex-1">
           <ControlledSelect
-            name="nationalId"
+            name={TFFIELD_NAME.nationalId}
             control={control}
             label={form.nationalId.label}
             rules={{
@@ -75,7 +76,7 @@ const PersonalInformationForm = ({ control }: Props) => {
       <div className="space-y-4 md:flex md:flex-row md:space-x-4">
         <div className="flex-1">
           <ControlledDate
-            name="dateOfBirth"
+            name={TFFIELD_NAME.dateOfBirth}
             control={control}
             label={form.dateOfBirth.label}
             rules={{
@@ -87,7 +88,7 @@ const PersonalInformationForm = ({ control }: Props) => {
 
         <div className="flex-1">
           <ControlledSelect
-            name="gender"
+            name={TFFIELD_NAME.gender}
             control={control}
             label={form.gender.label}
             rules={{
@@ -107,7 +108,7 @@ const PersonalInformationForm = ({ control }: Props) => {
       </div>
 
       <ControlledTextArea
-        name="address"
+        name={TFFIELD_NAME.address}
         control={control}
         label={form.address.label}
         rules={{
@@ -123,7 +124,7 @@ const PersonalInformationForm = ({ control }: Props) => {
       <RegionSelectorInput
         control={control}
         cityField={{
-          name: 'city',
+          name: TFFIELD_NAME.city,
           label: form.city.label,
           rules: {
             required: { value: true, message: form.city.required },
@@ -137,7 +138,7 @@ const PersonalInformationForm = ({ control }: Props) => {
           className: 'w-full',
         }}
         stateField={{
-          name: 'state',
+          name: TFFIELD_NAME.state,
           label: form.state.label,
           rules: {
             required: { value: true, message: form.state.required },
@@ -151,7 +152,7 @@ const PersonalInformationForm = ({ control }: Props) => {
           className: 'w-full',
         }}
         countryField={{
-          name: 'country',
+          name: TFFIELD_NAME.country,
           label: form.country.label,
           rules: {
             required: { value: true, message: form.country.required },
@@ -164,7 +165,7 @@ const PersonalInformationForm = ({ control }: Props) => {
       <div className="space-y-4 md:flex md:flex-row md:space-x-4">
         <div className="flex-1">
           <ControlledPhoneNumberInput
-            name="phoneNumber"
+            name={TFFIELD_NAME.phoneNumber}
             control={control}
             label={form.phoneNumber.label}
             rules={{
@@ -181,7 +182,7 @@ const PersonalInformationForm = ({ control }: Props) => {
 
         <div className="flex-1">
           <ControlledInput
-            name="email"
+            name={TFFIELD_NAME.email}
             control={control}
             label={form.email.label}
             rules={{

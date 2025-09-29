@@ -11,6 +11,7 @@ import {
 import ControlledSelect from '@/components/controlledUI/ControlledSelect';
 import { regionData } from './regionData';
 import { cn } from '@/lib/utils';
+import { TFFIELD_NAME } from '@/lib/enums/social-form-enum';
 
 type TRegionSelectorInputProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>;
@@ -51,19 +52,20 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
   cityField,
   containerClassName,
 }: TRegionSelectorInputProps<TFieldValues>) {
-  const selectedCountry = useWatch({ control, name: countryField.name });
-  const selectedState = useWatch({ control, name: stateField.name });
-  const selectedCity = useWatch({ control, name: cityField.name });
+  const [selectedCountry, selectedState, selectedCity] = useWatch({
+    control,
+    name: [countryField.name, stateField.name, cityField.name],
+  });
 
   const { setValue } = useFormContext<TFieldValues>();
 
-  // Generate country options from static data
-  const countryOptions = Object.entries(regionData).map(([key, val]) => ({
-    value: key,
-    label: val.name,
-  }));
+  const countryOptions = Object.entries(regionData).map(([key, val]) => {
+    return {
+      value: key,
+      label: val.name,
+    };
+  });
 
-  // Generate state options based on selected country
   const stateOptions =
     selectedCountry && regionData[selectedCountry as keyof typeof regionData]
       ? Object.entries(
@@ -74,7 +76,6 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
         }))
       : [];
 
-  // Generate city options based on selected country and state
   const cityOptions = (() => {
     if (!selectedCountry) return [];
     if (!selectedState) return [];
@@ -98,7 +99,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           key={selectedCountry}
           name={countryField.name}
           control={control}
-          label={countryField.label || 'Country'}
+          label={countryField.label || TFFIELD_NAME.country}
           description={countryField.description}
           {...(countryField.className && { className: countryField.className })}
           {...(countryField.rules && { rules: countryField.rules })}
@@ -106,8 +107,8 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           selectProps={{
             options: countryOptions,
             onChange: (value) => {
-              setValue(stateField.name, '' as any);
-              setValue(cityField.name, '' as any);
+              setValue(stateField.name, '');
+              setValue(cityField.name, '');
             },
           }}
         />
@@ -118,7 +119,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           key={selectedCountry + selectedState}
           name={stateField.name}
           control={control}
-          label={stateField.label || 'State'}
+          label={stateField.label || TFFIELD_NAME.state}
           description={stateField.description}
           {...(stateField.className && { className: stateField.className })}
           {...(stateField.rules && { rules: stateField.rules })}
@@ -142,7 +143,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           key={selectedCity}
           name={cityField.name}
           control={control}
-          label={cityField.label || 'City'}
+          label={cityField.label || TFFIELD_NAME.city}
           description={cityField.description}
           {...(cityField.className && { className: cityField.className })}
           {...(cityField.rules && { rules: cityField.rules })}

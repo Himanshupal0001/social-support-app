@@ -190,6 +190,12 @@ export type TUIComponentsTranslation = {
   };
 };
 
+export type TRegionTranslation = {
+  countries: Record<string, string>;
+  states: Record<string, Record<string, string>>;
+  cities: Record<string, Record<string, Record<string, string>>>;
+};
+
 export type TFormsTranslation = {
   personalInformation: TPersonalInformationFormTranslation;
   familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation;
@@ -200,4 +206,5 @@ export type TFormsTranslation = {
   mainForm: TMainFormTranslation;
   toastMessages: TToastMessagesTranslation;
   uiComponents: TUIComponentsTranslation;
+  region?: TRegionTranslation;
 };

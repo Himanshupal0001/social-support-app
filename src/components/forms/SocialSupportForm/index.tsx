@@ -9,6 +9,7 @@ import Progress from './Progress';
 import ReviewStep from './ReviewStep';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
+import type { TMainFormTranslation } from '@/localization/types/forms';
 
 const SocialSupportForm = () => {
   const {
@@ -24,9 +25,9 @@ const SocialSupportForm = () => {
 
   const { control } = formProps;
   const { t } = useTranslation();
-  const buttons = t('forms.mainForm.buttons', {
+  const buttons = t('forms.mainForm', {
     returnObjects: true,
-  });
+  }) as TMainFormTranslation;
 
   useEffect(() => {
     window.scrollTo({
@@ -67,11 +68,11 @@ const SocialSupportForm = () => {
           className={cn({ hidden: isFirstStep })}
           onClick={handleClickPrevious}
         >
-          {buttons.previous}
+          {buttons.buttons.previous}
         </Button>
 
         <Button onClick={isLastStep ? handleClickSubmit : handleClickNext}>
-          {isLastStep ? buttons.submit : buttons.next}
+          {isLastStep ? buttons.buttons.submit : buttons.buttons.next}
         </Button>
       </div>
     </>

@@ -11,7 +11,7 @@ export default function HowItWorks() {
         <div className="absolute -bottom-12 -right-12 h-52 w-52 rounded-full bg-secondary/15 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 py-12 md:py-32">
+      <div className="container mx-auto px-6 py-12 lg:py-32">
         <div className="flex flex-col items-center gap-2 md:gap-3 ">
           <h2 className="text-3xl md:text-5xl font-bold text-center">
             {t('howItWorks.title')}

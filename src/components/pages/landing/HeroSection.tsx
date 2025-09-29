@@ -17,7 +17,7 @@ export default function HeroSection() {
         <div className="absolute bottom-0 -right-10 h-72 w-72 rounded-full bg-secondary/20 blur-3xl animate-pulse" />
       </div>
 
-      <div className="container mx-auto md:px-6 md:py-32 px-4 py-6 ">
+      <div className="container mx-auto md:px-6 lg:py-32 px-4 py-10">
         <div className="grid items-center gap-6 md:gap-10 md:grid-cols-2">
           {/* left */}
           <div className="text-center md:text-left">

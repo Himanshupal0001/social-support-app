@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 export default function FinalCTA() {
   const { t } = useTranslation();
   return (
-    <section className="container mx-auto px-6 py-20 md:py-32 text-center">
+    <section className="container mx-auto px-6 py-20 lg:py-32 text-center">
       <h2 className="text-3xl md:text-5xl font-bold">{t('finalCta.title')}</h2>
       <p className="mt-2 text-muted-foreground">{t('finalCta.description')}</p>
       <div className="mt-6">

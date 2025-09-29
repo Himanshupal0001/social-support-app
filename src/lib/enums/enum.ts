@@ -2,6 +2,39 @@ export enum EStorageKey {
   UI_THEME = 'ui-theme',
   TRANSLATION_LANGUAGE = 'translation-language',
 }
+
+export enum ETheme {
+  DARK = 'dark',
+  LIGHT = 'light',
+  SYSTEM = 'system',
+}
+
+export enum EThemeError {
+  THEME_NOT_FOUND = 'Theme not found',
+  THEME_PROVIDER_ERROR = 'seTheme must be used within a ThemeProvider',
+}
+export enum ETranslationLanguage {
+  EN = 'en',
+  AR = 'ar',
+}
+
+export enum EDIRECTION {
+  LTR = 'ltr',
+  RTL = 'rtl',
+}
+
+export type ESupportedLanguageCode = ETranslationLanguage;
+
+export type ELanguageOption = {
+  code: ESupportedLanguageCode;
+  label: string;
+  dir: EDIRECTION;
+};
+
+export enum ENavigation {
+  goHome = 'Go Hoome',
+}
+
 export enum Gender {
   MALE = 'male',
   FEMALE = 'female',
@@ -38,4 +71,5 @@ export enum ERROR_MESSAGES {
   CLASSIFICATION_ERROR = 'Unable to process your input. Please try again.',
   SUBMISSION_ERROR = 'There was an error submitting your application. Please try again later.',
   PARSER_ERROR = 'Failed to parse saved form data',
+  SOMETHING_WENT_WRONG = 'Something went wrong',
 }

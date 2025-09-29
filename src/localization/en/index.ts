@@ -1,3 +1,4 @@
+import { generalNavigation } from './genral-navigation';
 import { heroSection } from './hero-section';
 import { navbar } from './navbar';
 import { aboutSection } from './about-section';
@@ -7,6 +8,7 @@ import { testimonials } from './testimonials';
 import { finalCta } from './final-cta';
 import { footer } from './footer';
 import { applyPage } from './apply-page';
+import { errors } from './errors';
 import {
   personalInformation,
   familyAndFinancialInfo,
@@ -17,6 +19,7 @@ import {
   mainForm,
   toastMessages,
   uiComponents,
+  region,
 } from './forms';
 export const enTranslations = {
   navbar,
@@ -28,6 +31,8 @@ export const enTranslations = {
   finalCta,
   footer,
   applyPage,
+  errors,
+  generalNavigation,
   forms: {
     personalInformation,
     familyAndFinancialInfo,
@@ -38,5 +43,6 @@ export const enTranslations = {
     mainForm,
     toastMessages,
     uiComponents,
+    region,
   },
 };

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 export default function AIHighlight() {
   const { t } = useTranslation();
   return (
-    <section className="container mx-auto px-6 py-12 md:py-32">
+    <section className="container mx-auto px-6 py-12 lg:py-32">
       <div className="grid items-start gap-6 md:gap-10 md:grid-cols-2">
         {/* Left */}
         <div>

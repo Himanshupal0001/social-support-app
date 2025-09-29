@@ -6,6 +6,7 @@ import { Edit3 } from 'lucide-react';
 import { X } from 'lucide-react';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import type { TAIModelTranslation } from '@/localization/types/forms';
 
 type TAIModelProps = {
   open: boolean;
@@ -35,11 +36,13 @@ const AIModel = ({
   handleGenerateResponse,
 }: TAIModelProps) => {
   const { t } = useTranslation();
-  const aiModel = t('forms.aiModel', { returnObjects: true }) as any;
+  const aiModel = t('forms.aiModel', {
+    returnObjects: true,
+  }) as TAIModelTranslation;
 
   return (
     <Dialog open={!!open} onOpenChange={(open) => !open && resetAiFields()}>
-      <DialogContent className="max-w-4xl w-[95vw] sm:w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[60vw] max-h-[85vh] h-[75vh] sm:h-[80vh] md:h-[75vh] lg:h-[70vh] xl:h-[65vh] min-h-[400px] sm:min-h-[500px]">
+      <DialogContent className="max-w-4xl w-[95vw] sm:w-[90vw] md:w-[80vw]   ">
         <DialogHeader className="mb-1 sm:mb-2">
           <DialogTitle className="flex items-center gap-2 ">
             <IoSparklesSharp className="text-primary" />
@@ -64,7 +67,7 @@ const AIModel = ({
           )}
 
           {!aiLoading && (
-            <div className="space-y-1 sm:space-y-2 flex-1 flex flex-col min-h-0">
+            <div className="space-y-1 sm:space-y-2 flex-1 flex flex-col h-full">
               <div className="rounded-lg border p-1 sm:p-3 bg-muted/50 flex-1 flex flex-col min-h-0">
                 <div className="flex items-center justify-between mb-1 sm:mb-2 flex-shrink-0">
                   <span className="text-sm font-medium text-muted-foreground truncate">
@@ -96,12 +99,11 @@ const AIModel = ({
                         ) : (
                           <IoSparklesSharp className="h-3 w-3 mr-1" />
                         )}
-                        <span className="hidden xs:inline">
+                        <span className="">
                           {aiSuggesstion && aiSuggesstion.trim().length > 0
                             ? aiModel.regenerate
                             : aiModel.generate}
                         </span>
-                        <span className="xs:hidden">Regen</span>
                       </Button>
                     )}
                   </div>
@@ -110,7 +112,7 @@ const AIModel = ({
                   value={aiSuggesstion || ''}
                   onChange={(e) => setAiSuggesstion(e.target.value)}
                   disabled={!isEditing}
-                  className="w-full flex-1 min-h-[120px] sm:min-h-[200px] md:min-h-[250px] lg:min-h-[300px] max-h-[300px] sm:max-h-[400px] p-1 sm:p-3 border rounded-md bg-background resize-none focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 text-xs sm:text-sm leading-relaxed overflow-y-auto"
+                  className="w-full flex-1 min-h-[300px] p-1 sm:p-3 border rounded-md bg-background resize-none focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 text-xs sm:text-sm leading-relaxed overflow-y-auto"
                   placeholder={aiModel.placeholder}
                 />
               </div>

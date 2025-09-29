@@ -5,13 +5,13 @@ import { enTranslations } from './en';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { arTranslations } from './ar';
-import { EStorageKey } from '@/lib/enums/enum';
+import { EStorageKey, ETranslationLanguage } from '@/lib/enums/enum';
 
-export const DEFAULT_LANGUAGE = 'en';
+export const DEFAULT_LANGUAGE = ETranslationLanguage.EN;
 
 const translations: Record<string, { translation: TAppTranslation }> = {
-  en: { translation: enTranslations },
-  ar: { translation: arTranslations },
+  [ETranslationLanguage.EN]: { translation: enTranslations },
+  [ETranslationLanguage.AR]: { translation: arTranslations },
 };
 
 const savedLanguage =

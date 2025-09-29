@@ -8,33 +8,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { EStorageKey } from '@/lib/enums/enum';
+import {
+  EStorageKey,
+  ETranslationLanguage,
+  type ELanguageOption,
+  type ESupportedLanguageCode,
+  EDIRECTION,
+} from '@/lib/enums/enum';
 
-type SupportedLanguageCode = 'en' | 'ar';
-
-type LanguageOption = {
-  code: SupportedLanguageCode;
-  label: string;
-  dir: 'ltr' | 'rtl';
-};
-
-const LANGUAGE_OPTIONS: LanguageOption[] = [
-  { code: 'en', label: 'English', dir: 'ltr' },
-  { code: 'ar', label: 'العربية', dir: 'rtl' },
+const LANGUAGE_OPTIONS: ELanguageOption[] = [
+  { code: ETranslationLanguage.EN, label: 'English', dir: EDIRECTION.LTR },
+  { code: ETranslationLanguage.AR, label: 'العربية', dir: EDIRECTION.RTL },
 ];
 
-const isSupported = (code: string | null): code is SupportedLanguageCode => {
+const isSupported = (code: string | null): code is ESupportedLanguageCode => {
   return LANGUAGE_OPTIONS.some((opt) => opt.code === code);
 };
 
-const getInitialLanguage = (): SupportedLanguageCode => {
+const getInitialLanguage = (): ESupportedLanguageCode => {
   const saved = StorageService.get(EStorageKey.TRANSLATION_LANGUAGE);
   if (isSupported(saved)) return saved;
-  return 'en';
+  return ETranslationLanguage.EN;
 };
 
 export default function LanguageToggle() {
-  const [language, setLanguage] = useState<SupportedLanguageCode>(
+  const [language, setLanguage] = useState<ESupportedLanguageCode>(
     getInitialLanguage()
   );
 
@@ -55,10 +53,11 @@ export default function LanguageToggle() {
 
   return (
     <Select
+      key={language}
       value={language}
-      onValueChange={(val) => setLanguage(val as SupportedLanguageCode)}
+      onValueChange={(val) => setLanguage(val as ESupportedLanguageCode)}
     >
-      <SelectTrigger className="w-[140px]">
+      <SelectTrigger className="w-[100px]">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent align="end">

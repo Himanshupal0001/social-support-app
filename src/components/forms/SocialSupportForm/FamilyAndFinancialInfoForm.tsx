@@ -21,6 +21,7 @@ const FamilyAndFinancialInfoForm = ({ control }: Props) => {
   const form = t('forms.familyAndFinancialInfo', {
     returnObjects: true,
   }) as TFamilyAndFinancialInfoFormTranslation;
+  console.log('familyform', form);
 
   return (
     <div className="md:grid md:grid-cols-2 md:gap-4 space-y-4">
@@ -83,7 +84,7 @@ const FamilyAndFinancialInfoForm = ({ control }: Props) => {
         control={control}
         currencies="all"
         variant={FAMILY_FINANCIAL_CONSTANTS.CURRENCY_VARIANT}
-        defaultCurrency={FAMILY_FINANCIAL_CONSTANTS.DEFAULT_CURRENCY}
+        defaultCurrency={'cuurency'}
         rules={{
           required: { value: true, message: form.monthlyIncome.required },
         }}
@@ -94,7 +95,7 @@ const FamilyAndFinancialInfoForm = ({ control }: Props) => {
           selectProps: {
             options: Object.entries(MONTHLY_INCOME_OPTIONS).map(
               ([value, labelKey]) => ({
-                value,
+                value: t(`forms.familyAndFinancialInfo.${value}`),
                 label: t(`forms.familyAndFinancialInfo.${labelKey}`),
               })
             ),

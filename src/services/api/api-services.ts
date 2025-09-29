@@ -1,4 +1,13 @@
+import { ERROR_MESSAGES } from '@/lib/enums/enum';
 import axios, { type AxiosRequestConfig } from 'axios';
+
+export enum ValidErrorStatus {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER_ERROR = 500,
+}
 
 const baseURL = import.meta.env['VITE_BASE_URL'];
 const accessToken = import.meta.env['VITE_OPENAI_API_KEY'];
@@ -16,7 +25,7 @@ const getInstance = () => {
     (config) => {
       const token = accessToken;
       if (token) {
-        console.log('valid key');
+        return config;
       }
       return config;
     },
@@ -27,24 +36,21 @@ const getInstance = () => {
 
   if (window && window.location) {
     instance.interceptors.response.use(
-      (response: any) => {
+      (response) => {
         return response;
       },
-      (error: any) => {
-        if (error.response?.status === 401) {
-          window.location.href = '/4001';
-        }
-        if (error.response?.status === 400) {
-          window.location.href = '/400';
-        }
-        if (error.response?.status === 500) {
-          window.location.href = '/500';
+      (error) => {
+        console.log(error);
+        const status = error.response?.status;
+
+        if (status && Object.values(ValidErrorStatus).includes(status)) {
+          window.location.href = `/error/${status}`;
         }
 
         const errorMessage =
           error.response?.data?.message ||
           error.message ||
-          'Something went wrong';
+          ERROR_MESSAGES.SUBMISSION_ERROR;
 
         return Promise.reject(errorMessage);
       }
@@ -54,9 +60,17 @@ const getInstance = () => {
   return instance;
 };
 
+export const isValidErrorStatus = (
+  status: string | undefined
+): status is string => {
+  if (!status) return false;
+  const statusNum = parseInt(status, 10);
+  return Object.values(ValidErrorStatus).includes(statusNum);
+};
+
 const get = (
   url: string,
-  params: any = {},
+  params: Record<string, unknown> = {},
   config: AxiosRequestConfig = {}
 ) => {
   return getInstance().get(url, { params, ...config });
@@ -64,8 +78,8 @@ const get = (
 
 const post = (
   url: string,
-  data: any = {},
-  params: any = {},
+  data: unknown = {},
+  params: unknown = {},
   config: AxiosRequestConfig = {}
 ) => {
   return getInstance().post(url, data, { params, ...config });
@@ -73,8 +87,8 @@ const post = (
 
 const put = (
   url: string,
-  data: any = {},
-  params: any = {},
+  data: unknown = {},
+  params: unknown = {},
   config: AxiosRequestConfig = {}
 ) => {
   return getInstance().put(url, data, { params, ...config });
@@ -82,8 +96,8 @@ const put = (
 
 const patch = (
   url: string,
-  data: any = {},
-  params: any = {},
+  data: unknown = {},
+  params: unknown = {},
   config: AxiosRequestConfig = {}
 ) => {
   return getInstance().patch(url, data, { params, ...config });
@@ -91,8 +105,8 @@ const patch = (
 
 const remove = (
   url: string,
-  params: any = {},
-  data?: any,
+  params: unknown = {},
+  data?: unknown,
   config: AxiosRequestConfig = {}
 ) => {
   return getInstance().delete(url, { params, data, ...config });

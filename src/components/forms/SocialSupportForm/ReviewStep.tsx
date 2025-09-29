@@ -55,9 +55,14 @@ const getSectionTitle = (sectionKey: string, t: (key: string) => string) => {
 
 export default function ReviewStep({ values, onEdit }: Props) {
   const { t } = useTranslation();
+  // Capture region raw values for nested translation lookups
+  const countryRaw = (values as any)?.country as string | undefined;
+  const stateRaw = (values as any)?.state as string | undefined;
   const formattedValues = formatValues(
     values as unknown as Record<string, unknown>,
-    t
+    t,
+    countryRaw,
+    stateRaw
   );
   const entries = Object.entries(formattedValues ?? {}) as [string, string][];
   const sections = groupFieldsBySection(entries);
@@ -72,7 +77,6 @@ export default function ReviewStep({ values, onEdit }: Props) {
             key={sectionKey}
             className="relative bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden"
           >
-            {/* Section Header */}
             <div className="bg-gray-50 dark:bg-gray-800 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -84,7 +88,6 @@ export default function ReviewStep({ values, onEdit }: Props) {
                   </h3>
                 </div>
 
-                {/* Edit Button */}
                 {onEdit && (
                   <Button
                     variant="outline"
@@ -136,11 +139,13 @@ export default function ReviewStep({ values, onEdit }: Props) {
     </div>
   );
 }
-// Function to translate enum values to their corresponding translated labels
+
 const translateEnumValue = (
   fieldName: string,
   value: string,
-  t: (key: string) => string
+  t: (key: string) => string,
+  countryRaw?: string,
+  stateRaw?: string
 ): string => {
   const enumMappings: Record<string, Record<string, string>> = {
     gender: GENDER_OPTIONS,
@@ -153,14 +158,12 @@ const translateEnumValue = (
 
   const fieldMapping = enumMappings[fieldName];
   if (fieldMapping && fieldMapping[value]) {
-    // Try personal information form first
     const personalInfoKey = `forms.personalInformation.${fieldMapping[value]}`;
     const personalInfoTranslation = t(personalInfoKey);
     if (personalInfoTranslation !== personalInfoKey) {
       return personalInfoTranslation;
     }
 
-    // Try family and financial info form
     const familyInfoKey = `forms.familyAndFinancialInfo.${fieldMapping[value]}`;
     const familyInfoTranslation = t(familyInfoKey);
     if (familyInfoTranslation !== familyInfoKey) {
@@ -168,23 +171,42 @@ const translateEnumValue = (
     }
   }
 
+  // Region fields translations (countries, states, cities)
+  if (fieldName === 'country') {
+    const key = `forms.region.countries.${value}`;
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+
+  if (fieldName === 'state' && countryRaw) {
+    const key = `forms.region.states.${countryRaw}.${value}`;
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+
+  if (fieldName === 'city' && countryRaw && stateRaw) {
+    const key = `forms.region.cities.${countryRaw}.${stateRaw}.${value}`;
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+
   return value;
 };
 
 const formatValues = (
   values: Record<string, unknown>,
-  t: (key: string) => string
+  t: (key: string) => string,
+  countryRaw?: string,
+  stateRaw?: string
 ) => {
   const formattedValues: Record<string, unknown> = { ...values };
 
-  // Format date of birth
   if (values['dateOfBirth']) {
     formattedValues['dateOfBirth'] = formatToSimpleDate(
       values['dateOfBirth'] as string | Date
     );
   }
 
-  // Format monthly income
   if ((values['monthlyIncome'] as Record<string, unknown>)?.['range']) {
     const monthlyIncome = values['monthlyIncome'] as Record<string, unknown>;
     formattedValues[
@@ -192,20 +214,24 @@ const formatValues = (
     ] = `${monthlyIncome['currency']}${REVIEW_STEP_CONSTANTS.VALUE_FORMATTING.CURRENCY_SEPARATOR}${monthlyIncome['range']}`;
   }
 
-  // Translate enum values for dropdown/select fields
   const enumFields = [
     'gender',
     'nationalId',
     'maritalStatus',
     'employmentStatus',
     'housingStatus',
+    'country',
+    'state',
+    'city',
   ];
   enumFields.forEach((fieldName) => {
     if (values[fieldName] && typeof values[fieldName] === 'string') {
       formattedValues[fieldName] = translateEnumValue(
         fieldName,
         values[fieldName] as string,
-        t
+        t,
+        countryRaw,
+        stateRaw
       );
     }
   });
