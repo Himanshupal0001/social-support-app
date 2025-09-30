@@ -170,6 +170,10 @@ const PersonalInformationForm = ({ control }: Props) => {
             label={form.phoneNumber.label}
             rules={{
               required: form.phoneNumber.required,
+              maxLength: {
+                value: PERSONAL_INFO_CONSTANTS.PHONE_MAX_LENGTH,
+                message: form.phoneNumber.required,
+              },
               pattern: {
                 value: PERSONAL_INFO_CONSTANTS.PHONE_PATTERN,
                 message: form.phoneNumber.required,
