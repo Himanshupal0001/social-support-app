@@ -1,40 +1,37 @@
 import { StorageService } from '@/services/storage-service';
-import { EStorageKey } from '@/types/enum';
-import { type TAppTranslation } from './types/index';
 import { enTranslations } from './en';
-// src/i18n.ts
-import i18n from 'i18next';
+
+import i18n, { type Resource, type InitOptions } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { arTranslations } from './ar';
+import { EStorageKey, ETranslationLanguage } from '@/lib/enums/enum';
 
-export const DEFAULT_LANGUAGE = 'en';
+export const DEFAULT_LANGUAGE = ETranslationLanguage.EN;
 
-// Define your translations
-const translations: Record<string, { translation: TAppTranslation }> = {
-  en: { translation: enTranslations },
-  ar: { translation: arTranslations },
+const resources: Resource = {
+  [ETranslationLanguage.EN]: { translation: enTranslations },
+  [ETranslationLanguage.AR]: { translation: arTranslations },
 };
 
-// Get saved language or default to DEFAULT_LANGUAGE
 const savedLanguage =
   StorageService.get(EStorageKey.TRANSLATION_LANGUAGE) ?? DEFAULT_LANGUAGE;
 
-// Optional: Set it in localStorage if not already saved
 if (!StorageService.get(EStorageKey.TRANSLATION_LANGUAGE)) {
   StorageService.set(EStorageKey.TRANSLATION_LANGUAGE, DEFAULT_LANGUAGE);
 }
 
-i18n.use(initReactI18next).init({
-  resources: translations,
-  lng: savedLanguage,
+const options: InitOptions = {
+  resources,
+  lng: savedLanguage as string,
   fallbackLng: DEFAULT_LANGUAGE,
-  interpolation: {
-    escapeValue: false,
-  },
-});
+  interpolation: { escapeValue: false },
+};
+
+i18n.use(initReactI18next).init(options);
 
 i18n.changeLanguage(
-  StorageService.get(EStorageKey.TRANSLATION_LANGUAGE) ?? DEFAULT_LANGUAGE
+  (StorageService.get(EStorageKey.TRANSLATION_LANGUAGE) as string) ??
+    DEFAULT_LANGUAGE
 );
 
 export default i18n;

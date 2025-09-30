@@ -5,6 +5,7 @@ import type {
   UseControllerProps,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   FormItem,
   FormLabel,
@@ -40,6 +41,7 @@ export default function ControlledDate<TFieldValues extends FieldValues>({
   defaultValue,
   disabled,
 }: TControlledDateProps<TFieldValues>) {
+  const { t } = useTranslation();
   return (
     <Controller
       name={name}
@@ -73,7 +75,7 @@ export default function ControlledDate<TFieldValues extends FieldValues>({
                   {field.value ? (
                     format(field.value, 'dd/MM/yyyy')
                   ) : (
-                    <span>Pick a date</span>
+                    <span>{t('forms.uiComponents.datePicker.pickDate')}</span>
                   )}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>

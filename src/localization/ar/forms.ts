@@ -9,6 +9,7 @@ import type {
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
+  sectionTitle: 'شخصي',
   name: {
     label: 'الاسم',
     placeholder: 'أدخل اسمك الكامل',
@@ -57,15 +58,16 @@ export const personalInformation: TPersonalInformationFormTranslation = {
   },
   phoneNumber: {
     label: 'رقم الهاتف',
-    required: 'رقم الهاتف مطلوب',
+    required: 'رقم هاتف صالح مطلوب',
   },
   email: {
     label: 'البريد الإلكتروني',
-    required: 'البريد الإلكتروني مطلوب',
+    required: 'بريد إلكتروني صالح مطلوب',
   },
 };
 
 export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
+  sectionTitle: 'معلومات الأسرة والمالية',
   maritalStatus: {
     label: 'الحالة الاجتماعية',
     required: 'الحالة الاجتماعية مطلوبة',
@@ -125,6 +127,7 @@ export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
 };
 
 export const situationDescriptions: TSituationDescriptionsFormTranslation = {
+  sectionTitle: 'وصف الحالة',
   financialSituation: {
     label: 'الوضع المالي الحالي',
     required: 'وصف الوضع المالي مطلوب',
@@ -178,4 +181,103 @@ export const mainForm: TMainFormTranslation = {
     next: 'التالي',
     submit: 'إرسال',
   },
+  editButton: 'تعديل',
 };
+
+// Toast messages
+export const toastMessages = {
+  success: {
+    message: 'تم إرسال الطلب بنجاح!',
+    description:
+      'تم إرسال طلب الدعم الاجتماعي الخاص بك. سنراجعه وسنعود إليك قريباً.',
+  },
+  error: {
+    message: 'فشل في الإرسال',
+    description: 'حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى لاحقاً.',
+  },
+};
+
+// UI Components
+export const uiComponents = {
+  datePicker: {
+    pickDate: 'اختر التاريخ',
+  },
+};
+
+// Regions (countries, states, cities)
+export const region = {
+  countries: {
+    uae: 'الإمارات العربية المتحدة',
+    saudi: 'المملكة العربية السعودية',
+    qatar: 'قطر',
+    oman: 'عُمان',
+  },
+  states: {
+    uae: {
+      dubai: 'دبي',
+      abu_dhabi: 'أبوظبي',
+    },
+    saudi: {
+      riyadh: 'الرياض',
+      jeddah: 'جدة',
+    },
+    qatar: {
+      doha: 'الدوحة',
+      al_rayyan: 'الريان',
+    },
+    oman: {
+      muscat: 'مسقط',
+      salalah: 'صلالة',
+    },
+  },
+  cities: {
+    uae: {
+      dubai: {
+        deira: 'ديرة',
+        jumeirah: 'جميرا',
+        bur_dubai: 'بر دبي',
+      },
+      abu_dhabi: {
+        al_ain: 'العين',
+        madinat_zayed: 'مدينة زايد',
+        ruwais: 'الرويس',
+      },
+    },
+    saudi: {
+      riyadh: {
+        al_malaz: 'الملز',
+        al_olaya: 'العليا',
+        al_batha: 'البطحاء',
+      },
+      jeddah: {
+        al_balad: 'البلد',
+        al_hamra: 'الحمرا',
+        al_safa: 'الصّفا',
+      },
+    },
+    qatar: {
+      doha: {
+        al_sadd: 'السد',
+        west_bay: 'الخليج الغربي',
+        the_pearl: 'اللؤلؤة',
+      },
+      al_rayyan: {
+        al_gharrafa: 'الغرافة',
+        education_city: 'مدينة التعليم',
+        muaither: 'معيذر',
+      },
+    },
+    oman: {
+      muscat: {
+        ruwi: 'روي',
+        muttrah: 'مطرح',
+        al_khuwair: 'الخوير',
+      },
+      salalah: {
+        al_haffa: 'الحافة',
+        al_wadi: 'الوادي',
+        salalah_gardens: 'حدائق صلالة',
+      },
+    },
+  },
+} as const;

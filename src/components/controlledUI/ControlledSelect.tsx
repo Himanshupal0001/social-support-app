@@ -26,7 +26,8 @@ type TControlledSelectProps<TFieldValues extends FieldValues> = {
     onChange?: (value: string) => void;
   };
   className?: string;
-} & Partial<UseControllerProps<TFieldValues>>;
+} & Partial<UseControllerProps<TFieldValues>> &
+  React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export default function ControlledSelect<TFieldValues extends FieldValues>({
   name,

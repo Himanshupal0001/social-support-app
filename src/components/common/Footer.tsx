@@ -7,7 +7,6 @@ export default function Footer() {
     <footer className="mt-16 border-t">
       <div className="container mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          {/* Brand + caption */}
           <div>
             <Link to="/" className="font-semibold text-foreground">
               Social Support Portal
@@ -17,7 +16,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Nav */}
           <nav className="text-sm text-muted-foreground">
             <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-start md:justify-center">
               <li>
@@ -49,7 +47,6 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
           <p>
             {t('footer.builtWithCare')}{' '}

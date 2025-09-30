@@ -9,6 +9,7 @@ import type {
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
+  sectionTitle: 'Personal',
   name: {
     label: 'Name',
     placeholder: 'Enter your full name',
@@ -57,15 +58,16 @@ export const personalInformation: TPersonalInformationFormTranslation = {
   },
   phoneNumber: {
     label: 'Phone Number',
-    required: 'Phone Number is required',
+    required: 'Valid phone number is required',
   },
   email: {
     label: 'Email',
-    required: 'Email is required',
+    required: 'Valid email is required',
   },
 };
 
 export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
+  sectionTitle: 'Family & Financial Information',
   maritalStatus: {
     label: 'Marital Status',
     required: 'Marital Status is required',
@@ -125,6 +127,7 @@ export const familyAndFinancialInfo: TFamilyAndFinancialInfoFormTranslation = {
 };
 
 export const situationDescriptions: TSituationDescriptionsFormTranslation = {
+  sectionTitle: 'Situation Description',
   financialSituation: {
     label: 'Current Financial Situation',
     required: 'Financial situation description is required',
@@ -178,4 +181,104 @@ export const mainForm: TMainFormTranslation = {
     next: 'Next',
     submit: 'Submit',
   },
+  editButton: 'Edit',
 };
+
+// Toast messages
+export const toastMessages = {
+  success: {
+    message: 'Application Submitted Successfully!',
+    description:
+      'Your social support application has been submitted. We will review it and get back to you soon.',
+  },
+  error: {
+    message: 'Submission Failed',
+    description:
+      'There was an error submitting your application. Please try again later.',
+  },
+};
+
+// UI Components
+export const uiComponents = {
+  datePicker: {
+    pickDate: 'Pick a date',
+  },
+};
+
+// Regions (countries, states, cities)
+export const region = {
+  countries: {
+    uae: 'United Arab Emirates',
+    saudi: 'Saudi Arabia',
+    qatar: 'Qatar',
+    oman: 'Oman',
+  },
+  states: {
+    uae: {
+      dubai: 'Dubai',
+      abu_dhabi: 'Abu Dhabi',
+    },
+    saudi: {
+      riyadh: 'Riyadh',
+      jeddah: 'Jeddah',
+    },
+    qatar: {
+      doha: 'Doha',
+      al_rayyan: 'Al Rayyan',
+    },
+    oman: {
+      muscat: 'Muscat',
+      salalah: 'Salalah',
+    },
+  },
+  cities: {
+    uae: {
+      dubai: {
+        deira: 'Deira',
+        jumeirah: 'Jumeirah',
+        bur_dubai: 'Bur Dubai',
+      },
+      abu_dhabi: {
+        al_ain: 'Al Ain',
+        madinat_zayed: 'Madinat Zayed',
+        ruwais: 'Ruwais',
+      },
+    },
+    saudi: {
+      riyadh: {
+        al_malaz: 'Al Malaz',
+        al_olaya: 'Al Olaya',
+        al_batha: 'Al Batha',
+      },
+      jeddah: {
+        al_balad: 'Al Balad',
+        al_hamra: 'Al Hamra',
+        al_safa: 'Al Safa',
+      },
+    },
+    qatar: {
+      doha: {
+        al_sadd: 'Al Sadd',
+        west_bay: 'West Bay',
+        the_pearl: 'The Pearl',
+      },
+      al_rayyan: {
+        al_gharrafa: 'Al Gharrafa',
+        education_city: 'Education City',
+        muaither: 'Muaither',
+      },
+    },
+    oman: {
+      muscat: {
+        ruwi: 'Ruwi',
+        muttrah: 'Muttrah',
+        al_khuwair: 'Al Khuwair',
+      },
+      salalah: {
+        al_haffa: 'Al Haffa',
+        al_wadi: 'Al Wadi',
+        salalah_gardens: 'Salalah Gardens',
+      },
+    },
+  },
+} as const;
