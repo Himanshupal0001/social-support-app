@@ -107,8 +107,14 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           selectProps={{
             options: countryOptions,
             onChange: () => {
-              setValue(stateField.name, '');
-              setValue(cityField.name, '');
+              setValue(
+                stateField.name,
+                '' as unknown as TFieldValues[FieldPath<TFieldValues>]
+              );
+              setValue(
+                cityField.name,
+                '' as unknown as TFieldValues[FieldPath<TFieldValues>]
+              );
             },
           }}
         />
@@ -132,7 +138,10 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           selectProps={{
             options: selectedCountry ? stateOptions : [],
             onChange: (value) => {
-              setValue(cityField.name, '' as any);
+              setValue(
+                cityField.name,
+                '' as unknown as TFieldValues[FieldPath<TFieldValues>]
+              );
             },
           }}
         />

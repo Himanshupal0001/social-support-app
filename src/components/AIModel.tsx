@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { TAIModelTranslation } from '@/localization/types/forms';
+import type { TErrors } from '@/localization/types/errors';
 
 type TAIModelProps = {
   open: boolean;
@@ -40,6 +41,10 @@ const AIModel = ({
     returnObjects: true,
   }) as TAIModelTranslation;
 
+  const errorMessage = t('errors', {
+    returnObjects: true,
+  }) as TErrors;
+
   return (
     <Dialog open={!!open} onOpenChange={(open) => !open && resetAiFields()}>
       <DialogContent className="max-w-4xl w-[95vw] sm:w-[90vw] md:w-[80vw]   ">
@@ -62,7 +67,9 @@ const AIModel = ({
 
           {aiError && (
             <div className="rounded-lg border border-destructive/20 bg-destructive/10 p-2 sm:p-3">
-              <p className="text-sm text-destructive">{aiError}</p>
+              <p className="text-sm text-destructive">
+                {t(errorMessage.invalidContext)}
+              </p>
             </div>
           )}
 

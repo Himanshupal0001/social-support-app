@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": false,
+    "emitDeclarationOnly": false
+  },
+  "exclude": [
+    "**/__tests__/**",
+    "src/test/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "vitest.config.ts"
+  ]
+}
+
+
