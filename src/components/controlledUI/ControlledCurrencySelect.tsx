@@ -105,7 +105,6 @@ const ControlledCurrencySelect = ({
                   <Select
                     key={field?.value?.range}
                     onValueChange={(range) => {
-                      console.log('range', range);
                       const values = { ...field?.value, range };
                       field.onChange(values);
                       if (field?.value?.currency && field?.value?.range) {

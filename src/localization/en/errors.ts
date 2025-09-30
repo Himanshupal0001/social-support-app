@@ -5,6 +5,8 @@ export const errors: TErrors = {
   invalidContext:
     'Please provide information related to your social support application.',
   classificationError: 'Unable to process your input. Please try again.',
+  offTopicRedirection:
+    "I'm here to help you describe your situation for the social support application. Let's stay focused so we can best assist you.",
   submissionError:
     'There was an error submitting your application. Please try again later.',
   parserError: 'Failed to parse saved form data',

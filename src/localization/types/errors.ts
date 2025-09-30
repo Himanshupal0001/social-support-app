@@ -1,6 +1,7 @@
 export type TErrors = {
   networkError: string;
   invalidContext: string;
+  offTopicRedirection: string;
   classificationError: string;
   submissionError: string;
   parserError: string;

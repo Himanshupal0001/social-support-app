@@ -185,7 +185,7 @@ const useSituationDescriptionAiHelpForm = ({
           setAiSuggesstion(
             AI_HELP_CONSTANTS.ERROR_MESSAGES.OFF_TOPIC_REDIRECTION
           );
-          setAiError(AI_HELP_CONSTANTS.ERROR_MESSAGES.INVALID_CONTEXT);
+          setAiError(AI_HELP_CONSTANTS.ERROR_MESSAGES.CLASSIFICATION_ERROR);
           return;
         }
 

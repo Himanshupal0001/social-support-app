@@ -220,12 +220,10 @@ export const AI_HELP_CONSTANTS = {
   },
 
   ERROR_MESSAGES: {
-    OFF_TOPIC_REDIRECTION:
-      "I'm here to help you describe your situation for the social support application. Let's stay focused so we can best assist you.",
-    INVALID_CONTEXT:
-      'Please provide information related to your social support application.',
-    NETWORK_ERROR: 'Network error. Please try again.',
-    CLASSIFICATION_ERROR: 'Classification error:',
+    OFF_TOPIC_REDIRECTION: `I'm here to help you describe your situation for the social support application. Let's stay focused so we can best assist you.`,
+    INVALID_CONTEXT: 'errors.invalidContext',
+    NETWORK_ERROR: 'errors.networkError',
+    CLASSIFICATION_ERROR: 'errors.classificationError',
   },
 
   PROMPT_TEMPLATES: {
