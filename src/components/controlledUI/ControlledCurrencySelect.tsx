@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Controller,
   type Control,
@@ -15,6 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import type { TCurrencySelectTranslation } from '@/localization/types/forms';
+import { useTranslation } from 'react-i18next';
 
 type TControlledCurrencySelectProps<TFieldValues extends FieldValues> = {
   currencies: 'custom' | 'all';
@@ -43,7 +45,7 @@ const ControlledCurrencySelect = ({
   variant,
   disabled,
 }: TControlledCurrencySelectProps<FieldValues>) => {
-  const { name, control, label, selectProps, className } = selectInputProps;
+  const { name, control, label, selectProps } = selectInputProps;
 
   return (
     <Controller
@@ -55,10 +57,10 @@ const ControlledCurrencySelect = ({
             return `${label} is required`;
           }
           if (value.currency === undefined || value.currency === '') {
-            return `Please select currency`;
+            return 'Please select currency';
           }
           if (value.range === undefined || value.range === '') {
-            return `Please select value range`;
+            return 'Please select value range';
           }
           return true;
         },
