@@ -6,6 +6,7 @@ import type {
   TReviewStepTranslation,
   TAIModelTranslation,
   TMainFormTranslation,
+  TCurrencySelectTranslation,
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
@@ -156,6 +157,11 @@ export const progress: TProgressTranslation = {
     reviewSubmit: 'مراجعة وإرسال',
   },
   stepLabel: 'خطوة',
+};
+
+export const currencySelect: TCurrencySelectTranslation = {
+  currency: 'يرجى اختيار العملة',
+  range: 'يرجى اختيار النطاق',
 };
 
 export const reviewStep: TReviewStepTranslation = {

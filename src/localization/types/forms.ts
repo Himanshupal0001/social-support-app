@@ -184,6 +184,11 @@ export type TToastMessagesTranslation = {
   };
 };
 
+export type TCurrencySelectTranslation = {
+  currency: string;
+  range: string;
+};
+
 export type TUIComponentsTranslation = {
   datePicker: {
     pickDate: string;

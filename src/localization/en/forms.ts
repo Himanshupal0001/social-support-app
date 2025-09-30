@@ -6,6 +6,7 @@ import type {
   TReviewStepTranslation,
   TAIModelTranslation,
   TMainFormTranslation,
+  TCurrencySelectTranslation,
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
@@ -182,6 +183,11 @@ export const mainForm: TMainFormTranslation = {
     submit: 'Submit',
   },
   editButton: 'Edit',
+};
+
+export const currencySelect: TCurrencySelectTranslation = {
+  currency: 'Please select Currency',
+  range: 'Please select Range',
 };
 
 // Toast messages

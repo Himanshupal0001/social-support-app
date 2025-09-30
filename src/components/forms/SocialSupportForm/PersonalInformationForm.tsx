@@ -174,6 +174,10 @@ const PersonalInformationForm = ({ control }: Props) => {
                 value: PERSONAL_INFO_CONSTANTS.PHONE_MAX_LENGTH,
                 message: form.phoneNumber.required,
               },
+              minLength: {
+                value: PERSONAL_INFO_CONSTANTS.PHONE_MIN_LENGTH,
+                message: form.phoneNumber.required,
+              },
               pattern: {
                 value: PERSONAL_INFO_CONSTANTS.PHONE_PATTERN,
                 message: form.phoneNumber.required,
