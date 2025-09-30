@@ -161,6 +161,15 @@ const formatValues = (
 ) => {
   const formattedValues: Record<string, unknown> = { ...values };
 
+  if (values['phoneNumber'] && typeof values['phoneNumber'] === 'string') {
+    const phoneNumber = values['phoneNumber'] as string;
+    if (phoneNumber.endsWith('+')) {
+      formattedValues['phoneNumber'] = '+' + phoneNumber.slice(0, -1);
+    } else if (!phoneNumber.startsWith('+') && phoneNumber.length > 0) {
+      formattedValues['phoneNumber'] = '+' + phoneNumber;
+    }
+  }
+
   if (values['dateOfBirth']) {
     formattedValues['dateOfBirth'] = formatToSimpleDate(
       values['dateOfBirth'] as string | Date

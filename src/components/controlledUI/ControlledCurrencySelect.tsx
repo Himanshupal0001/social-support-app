@@ -15,8 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import type { TCurrencySelectTranslation } from '@/localization/types/forms';
-import { useTranslation } from 'react-i18next';
 
 type TControlledCurrencySelectProps<TFieldValues extends FieldValues> = {
   currencies: 'custom' | 'all';

@@ -7,6 +7,7 @@ import type {
   TAIModelTranslation,
   TMainFormTranslation,
   TCurrencySelectTranslation,
+  TRegionTranslation,
 } from '../types/forms';
 
 export const personalInformation: TPersonalInformationFormTranslation = {
@@ -188,6 +189,12 @@ export const mainForm: TMainFormTranslation = {
 export const currencySelect: TCurrencySelectTranslation = {
   currency: 'Please select Currency',
   range: 'Please select Range',
+  placeholder: 'Select range',
+  errors: {
+    required: 'This field is required',
+    currencyRequired: 'Please select currency',
+    rangeRequired: 'Please select value range',
+  },
 };
 
 // Toast messages
@@ -212,7 +219,7 @@ export const uiComponents = {
 };
 
 // Regions (countries, states, cities)
-export const region = {
+export const region: TRegionTranslation = {
   countries: {
     uae: 'United Arab Emirates',
     saudi: 'Saudi Arabia',

@@ -162,6 +162,12 @@ export const progress: TProgressTranslation = {
 export const currencySelect: TCurrencySelectTranslation = {
   currency: 'يرجى اختيار العملة',
   range: 'يرجى اختيار النطاق',
+  placeholder: 'اختر النطاق',
+  errors: {
+    required: 'هذا الحقل مطلوب',
+    currencyRequired: 'يرجى اختيار العملة',
+    rangeRequired: 'يرجى اختيار نطاق القيمة',
+  },
 };
 
 export const reviewStep: TReviewStepTranslation = {

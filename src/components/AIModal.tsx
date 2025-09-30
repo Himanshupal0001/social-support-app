@@ -23,7 +23,7 @@ type TAIModelProps = {
   handleGenerateResponse: () => void;
 };
 
-const AIModel = ({
+const AIModal = ({
   open,
   resetAiFields,
   isEditing,
@@ -135,6 +135,7 @@ const AIModel = ({
                 </Button>
                 <Button
                   onClick={handleAccept}
+                  disabled={!!aiError}
                   className="w-full sm:w-auto order-1 sm:order-2 h-8 sm:h-9 px-2 sm:px-3"
                 >
                   <Check className="h-4 w-4 mr-2" />
@@ -149,4 +150,4 @@ const AIModel = ({
   );
 };
 
-export default AIModel;
+export default AIModal;

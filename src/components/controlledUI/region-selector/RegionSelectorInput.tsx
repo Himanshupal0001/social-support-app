@@ -12,6 +12,8 @@ import ControlledSelect from '@/components/controlledUI/ControlledSelect';
 import { regionData } from './regionData';
 import { cn } from '@/lib/utils';
 import { TFFIELD_NAME } from '@/lib/enums/social-form-enum';
+import { useTranslation } from 'react-i18next';
+import type { TRegionTranslation } from '@/localization/types/forms';
 
 type TRegionSelectorInputProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>;
@@ -59,10 +61,16 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
 
   const { setValue } = useFormContext<TFieldValues>();
 
+  const { t } = useTranslation();
+
+  const regionOptions = t('forms.region', {
+    returnObjects: true,
+  }) as TRegionTranslation;
+
   const countryOptions = Object.entries(regionData).map(([key, val]) => {
     return {
       value: key,
-      label: val.name,
+      label: regionOptions.countries[key] || val.name,
     };
   });
 
@@ -72,7 +80,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           regionData[selectedCountry as keyof typeof regionData].states
         ).map(([key, val]) => ({
           value: key,
-          label: val.name,
+          label: regionOptions.states[selectedCountry]?.[key] || val.name,
         }))
       : [];
 
@@ -86,10 +94,15 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
     const state = country.states[selectedState as keyof typeof country.states];
     if (!state) return [];
 
-    return (state as { cities: string[] }).cities.map((city: string) => ({
-      value: city.toLowerCase().replace(/\s+/g, '_'),
-      label: city,
-    }));
+    return (state as { cities: string[] }).cities.map((city: string) => {
+      const cityKey = city.toLowerCase().replace(/\s+/g, '_');
+      return {
+        value: cityKey,
+        label:
+          regionOptions.cities[selectedCountry]?.[selectedState]?.[cityKey] ||
+          city,
+      };
+    });
   })();
 
   return (
@@ -137,7 +150,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           // }
           selectProps={{
             options: selectedCountry ? stateOptions : [],
-            onChange: (value) => {
+            onChange: () => {
               setValue(
                 cityField.name,
                 '' as unknown as TFieldValues[FieldPath<TFieldValues>]

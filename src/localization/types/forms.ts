@@ -187,6 +187,12 @@ export type TToastMessagesTranslation = {
 export type TCurrencySelectTranslation = {
   currency: string;
   range: string;
+  placeholder: string;
+  errors: {
+    required: string;
+    currencyRequired: string;
+    rangeRequired: string;
+  };
 };
 
 export type TUIComponentsTranslation = {
