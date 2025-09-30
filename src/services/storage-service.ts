@@ -1,5 +1,5 @@
 interface SavedData {
-  data: any;
+  data: unknown;
   timestamp: number;
 }
 

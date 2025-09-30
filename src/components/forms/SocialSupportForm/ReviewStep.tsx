@@ -13,6 +13,7 @@ import {
   EMPLOYMENT_STATUS_OPTIONS,
   MONTHLY_INCOME_OPTIONS,
   HOUSING_STATUS_OPTIONS,
+  TFFIELD_NAME,
 } from '@/lib/enums/social-form-enum';
 
 type Props = {
@@ -20,44 +21,12 @@ type Props = {
   onEdit?: (section: string) => void;
 };
 
-const getFieldLabel = (key: string, t: (key: string) => string) => {
-  const labelKey =
-    REVIEW_STEP_CONSTANTS.FIELD_LABEL_KEYS[
-      key as keyof typeof REVIEW_STEP_CONSTANTS.FIELD_LABEL_KEYS
-    ];
-
-  if (labelKey) {
-    return t(labelKey);
-  }
-
-  // Fallback to pretty label if no translation key exists
-  return key
-    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-};
-
-const getSectionTitle = (sectionKey: string, t: (key: string) => string) => {
-  const titleKey =
-    REVIEW_STEP_CONSTANTS.SECTION_TITLE_KEYS[
-      sectionKey as keyof typeof REVIEW_STEP_CONSTANTS.SECTION_TITLE_KEYS
-    ];
-
-  if (titleKey) {
-    return t(titleKey);
-  }
-
-  // Fallback to SECTION_TITLES if no translation key exists
-  return (
-    SECTION_TITLES[sectionKey as keyof typeof SECTION_TITLES] || sectionKey
-  );
-};
-
 export default function ReviewStep({ values, onEdit }: Props) {
   const { t } = useTranslation();
-  // Capture region raw values for nested translation lookups
+
   const countryRaw = (values as any)?.country as string | undefined;
   const stateRaw = (values as any)?.state as string | undefined;
+
   const formattedValues = formatValues(
     values as unknown as Record<string, unknown>,
     t,
@@ -104,20 +73,12 @@ export default function ReviewStep({ values, onEdit }: Props) {
               </div>
             </div>
 
-            {/* Section Content */}
             <div className="p-4 sm:p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {section.fields.map(([key, value]) => {
-                  // const isOdd = section.fields.length % 2 !== 0;
-                  // const isLast = index === section.fields.length - 1;
-                  // const shouldSpanFull = isOdd && isLast;
                   return (
                     <div
                       key={key}
-                      // className={cn(
-                      //   'rounded-lg border p-3 bg-background/50',
-                      //   shouldSpanFull && 'sm:col-span-2'
-                      // )}
                       className="rounded-lg border p-3 bg-background/50"
                     >
                       <div className="text-xs text-muted-foreground">
@@ -171,7 +132,6 @@ const translateEnumValue = (
     }
   }
 
-  // Region fields translations (countries, states, cities)
   if (fieldName === 'country') {
     const key = `forms.region.countries.${value}`;
     const translated = t(key);
@@ -215,14 +175,14 @@ const formatValues = (
   }
 
   const enumFields = [
-    'gender',
-    'nationalId',
-    'maritalStatus',
-    'employmentStatus',
-    'housingStatus',
-    'country',
-    'state',
-    'city',
+    TFFIELD_NAME.gender,
+    TFFIELD_NAME.nationalId,
+    TFFIELD_NAME.maritalStatus,
+    TFFIELD_NAME.employmentStatus,
+    TFFIELD_NAME.housingStatus,
+    TFFIELD_NAME.country,
+    TFFIELD_NAME.state,
+    TFFIELD_NAME.city,
   ];
   enumFields.forEach((fieldName) => {
     if (values[fieldName] && typeof values[fieldName] === 'string') {
@@ -263,5 +223,36 @@ const groupFieldsBySection = (entries: [string, string][]) => {
 
   return Object.entries(sections).filter(
     ([, section]) => section.fields.length > 0
+  );
+};
+
+const getFieldLabel = (key: string, t: (key: string) => string) => {
+  const labelKey =
+    REVIEW_STEP_CONSTANTS.FIELD_LABEL_KEYS[
+      key as keyof typeof REVIEW_STEP_CONSTANTS.FIELD_LABEL_KEYS
+    ];
+
+  if (labelKey) {
+    return t(labelKey);
+  }
+
+  return key
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
+const getSectionTitle = (sectionKey: string, t: (key: string) => string) => {
+  const titleKey =
+    REVIEW_STEP_CONSTANTS.SECTION_TITLE_KEYS[
+      sectionKey as keyof typeof REVIEW_STEP_CONSTANTS.SECTION_TITLE_KEYS
+    ];
+
+  if (titleKey) {
+    return t(titleKey);
+  }
+
+  return (
+    SECTION_TITLES[sectionKey as keyof typeof SECTION_TITLES] || sectionKey
   );
 };

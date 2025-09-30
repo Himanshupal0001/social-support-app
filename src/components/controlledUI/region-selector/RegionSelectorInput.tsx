@@ -106,7 +106,7 @@ export default function RegionSelectorInput<TFieldValues extends FieldValues>({
           disabled={countryField.disabled ?? false}
           selectProps={{
             options: countryOptions,
-            onChange: (value) => {
+            onChange: () => {
               setValue(stateField.name, '');
               setValue(cityField.name, '');
             },

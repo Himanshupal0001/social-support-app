@@ -3,13 +3,15 @@ import { Suspense, lazy } from 'react';
 import { Layout } from './components/common/Layout';
 const LandingPage = lazy(() => import('./components/pages/LandingPage'));
 const ApplyPage = lazy(() => import('./components/pages/ApplyPage'));
+const DynamicError = lazy(
+  () => import('./components/pages/Errors/DynamicError')
+);
 import { ThemeProvider } from './context/ThemeProvider';
 import { Toaster } from 'sonner';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './localization/i18n';
 import ErrorBoundary from './components/pages/Errors/ErrorBoundary';
 import { EStorageKey, ETheme } from './lib/enums/enum';
-import DynamicError from './components/pages/Errors/DynamicError';
 
 function App() {
   return (
@@ -32,9 +34,6 @@ function App() {
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/apply" element={<ApplyPage />} />
                   <Route path="/error/:status" element={<DynamicError />} />
-                  {/* <Route path="/400" element={<Error400Page />} />
-                  <Route path="/401" element={<Error401Page />} />
-                  <Route path="/500" element={<Error500Page />} /> */}
                 </Routes>
               </Suspense>
             </Layout>

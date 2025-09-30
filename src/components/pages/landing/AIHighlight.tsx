@@ -5,7 +5,6 @@ export default function AIHighlight() {
   return (
     <section className="container mx-auto px-6 py-12 lg:py-32">
       <div className="grid items-start gap-6 md:gap-10 md:grid-cols-2">
-        {/* Left */}
         <div>
           <h2 className="text-3xl md:text-5xl font-bold">
             {t('aiHighlights.title')}
@@ -29,7 +28,6 @@ export default function AIHighlight() {
           </ul>
         </div>
 
-        {/* Right: AI card */}
         <div className="rounded-2xl border border-white/10 dark:border-white/5 bg-background/50 backdrop-blur-md shadow-sm">
           <div className="p-4 md:p-6">
             <div className="flex items-center justify-between">

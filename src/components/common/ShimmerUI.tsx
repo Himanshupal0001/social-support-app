@@ -1,4 +1,3 @@
-import React from 'react';
 import { ShimmeringText } from '../ui/shadcn-io/shimmering-text';
 
 const ShimmerUI = () => {

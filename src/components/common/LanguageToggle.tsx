@@ -27,7 +27,7 @@ const isSupported = (code: string | null): code is ESupportedLanguageCode => {
 
 const getInitialLanguage = (): ESupportedLanguageCode => {
   const saved = StorageService.get(EStorageKey.TRANSLATION_LANGUAGE);
-  if (isSupported(saved)) return saved;
+  if (isSupported(saved as string)) return saved as ESupportedLanguageCode;
   return ETranslationLanguage.EN;
 };
 

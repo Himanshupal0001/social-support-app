@@ -4,7 +4,7 @@ import type { UseFormProps } from 'react-hook-form';
 const useReactHookForm = (props?: UseFormProps) => {
   const formProps = useForm(props);
 
-  const setValues = (formValues: any = {}) => {
+  const setValues = (formValues: unknown = {}) => {
     Object.keys(formValues || {}).forEach((key) => {
       formProps.setValue(key, formValues[key] || undefined);
     });

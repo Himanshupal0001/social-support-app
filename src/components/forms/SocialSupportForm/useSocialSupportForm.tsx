@@ -43,7 +43,7 @@ const useSocialSupportForm = () => {
 
       const currentFormValues = formProps.getValues();
       const saved = StorageService.get(STORAGE_KEY);
-      const parsed = saved ? JSON.parse(saved) : {};
+      const parsed = saved ? JSON.parse(saved as string) : {};
 
       const validSteps = Array.isArray(parsed.validSteps)
         ? Array.from(new Set([...parsed.validSteps, activeStep]))
@@ -77,7 +77,7 @@ const useSocialSupportForm = () => {
     setActiveStep(targetStep);
 
     const saved = StorageService.get(STORAGE_KEY);
-    const parsed = saved ? JSON.parse(saved) : {};
+    const parsed = saved ? JSON.parse(saved as string) : {};
 
     StorageService.set(
       STORAGE_KEY,
@@ -109,12 +109,11 @@ const useSocialSupportForm = () => {
     }
   };
 
-  // Load saved progress
   useEffect(() => {
     const raw = StorageService.get(STORAGE_KEY);
     if (raw) {
       try {
-        const parsed = JSON.parse(raw);
+        const parsed = JSON.parse(raw as string);
 
         reset({
           ...parsed,

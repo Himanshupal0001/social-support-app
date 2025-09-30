@@ -27,7 +27,7 @@ export type ESupportedLanguageCode = ETranslationLanguage;
 
 export type ELanguageOption = {
   code: ESupportedLanguageCode;
-  label: string;
+  label: 'English' | 'العربية';
   dir: EDIRECTION;
 };
 
@@ -72,4 +72,5 @@ export enum ERROR_MESSAGES {
   SUBMISSION_ERROR = 'There was an error submitting your application. Please try again later.',
   PARSER_ERROR = 'Failed to parse saved form data',
   SOMETHING_WENT_WRONG = 'Something went wrong',
+  ERROR = 'Error',
 }

@@ -21,7 +21,7 @@ const DynamicError = () => {
     navigate('/');
   };
 
-  const errorMap: Record<number, () => any> = {
+  const errorMap: Record<number, () => unknown> = {
     [ValidErrorStatus.BAD_REQUEST]: () => errors.error400,
     [ValidErrorStatus.UNAUTHORIZED]: () => errors.error401,
     [ValidErrorStatus.NOT_FOUND]: () => errors.error404,

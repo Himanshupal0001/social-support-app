@@ -17,7 +17,6 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Right: Feature cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FeatureCard
               icon={<CheckCircle className="h-4 w-4" />}

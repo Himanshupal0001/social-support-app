@@ -11,7 +11,6 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If the pathname is NOT the root and there's a hash, remove it
     if (location.pathname !== '/' && location.hash) {
       navigate(location.pathname, { replace: true });
     }
@@ -57,7 +56,6 @@ export default function Navbar() {
           <ThemeToggle />
         </nav>
 
-        {/* Mobile controls */}
         <div className="flex items-center gap-3 md:hidden">
           <LanguageToggle />
           <ThemeToggle />

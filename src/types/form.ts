@@ -1,3 +1,5 @@
+import type { Gender } from '@/lib/enums/enum';
+
 export type FormData = {
   name: string;
   nationalId: string;

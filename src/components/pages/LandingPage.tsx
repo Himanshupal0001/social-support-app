@@ -18,15 +18,16 @@ const LandingPage = () => {
       behavior: 'smooth',
     });
   }, [isHome]);
+
   return (
-    <div className="">
+    <>
       <HeroSection />
       <AboutSection />
       <HowItWorks />
       <AIHighlight />
       <Testimonials />
       <FinalCTA />
-    </div>
+    </>
   );
 };
 

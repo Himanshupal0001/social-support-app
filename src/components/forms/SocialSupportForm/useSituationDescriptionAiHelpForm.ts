@@ -1,7 +1,8 @@
-import { EStorageKey, type Gender } from '@/lib/enums/enum';
+import { ERROR_MESSAGES, EStorageKey, type Gender } from '@/lib/enums/enum';
 import {
   SituationFieldNames,
   AI_HELP_CONSTANTS,
+  TFFIELD_NAME,
 } from '@/lib/enums/social-form-enum';
 import { OPENAISERVICE } from '@/services/api/open-ai';
 import { StorageService } from '@/services/storage-service';
@@ -9,7 +10,6 @@ import { useRef, useState } from 'react';
 import { useFormContext, type Control, useWatch } from 'react-hook-form';
 
 export type FormData = {
-  // Step 1: Personal Information
   name: string;
   nationalId: string;
   dateOfBirth: string;
@@ -20,13 +20,11 @@ export type FormData = {
   country: string;
   phoneNumber: string;
   email: string;
-  // Step 2: Family and Financial Info
   maritalStatus: string;
   dependents: number;
   employmentStatus: string;
   monthlyIncome: number | null;
   housingStatus: string;
-  // Step 3: Situation Descriptions
   financialSituation: string;
   employmentCircumstances: string;
   reasonForApplying: string;
@@ -76,11 +74,11 @@ const useSituationDescriptionAiHelpForm = ({
   //for ai context
   const watchValues = useWatch({
     name: [
-      'name',
-      'dependents',
-      'maritalStatus',
-      'housingStatus',
-      'employmentStatus',
+      TFFIELD_NAME.name,
+      TFFIELD_NAME.dependents,
+      TFFIELD_NAME.maritalStatus,
+      TFFIELD_NAME.housingStatus,
+      TFFIELD_NAME.employmentStatus,
     ],
     control,
   }) as [string, number, string, string, string];
@@ -88,7 +86,6 @@ const useSituationDescriptionAiHelpForm = ({
   const [name, dependents, maritalStatus, housingStatus, employmentStatus] =
     watchValues;
 
-  // Helper function to replace template placeholders
   const replaceTemplatePlaceholders = (
     template: string,
     replacements: Record<string, string>
@@ -198,7 +195,9 @@ const useSituationDescriptionAiHelpForm = ({
             userInput: aiSuggesstion,
             fieldLabel,
             contextSnippet,
-            language: preferedLanguage || AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
+            language:
+              (preferedLanguage as string) ||
+              AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
             wordLimit: AI_HELP_CONSTANTS.WORD_LIMIT,
             tone: AI_HELP_CONSTANTS.TONE,
           }
@@ -215,13 +214,15 @@ const useSituationDescriptionAiHelpForm = ({
           AI_HELP_CONSTANTS.ERROR_MESSAGES.CLASSIFICATION_ERROR,
           error
         );
-        // Fallback: if classification fails, proceed with standard flow
+
         const standardPrompt = replaceTemplatePlaceholders(
           AI_HELP_CONSTANTS.PROMPT_TEMPLATES.STANDARD,
           {
             fieldLabel,
             contextSnippet,
-            language: preferedLanguage || AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
+            language:
+              (preferedLanguage as string) ||
+              AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
             wordLimit: AI_HELP_CONSTANTS.WORD_LIMIT,
             tone: AI_HELP_CONSTANTS.TONE,
           }
@@ -235,13 +236,13 @@ const useSituationDescriptionAiHelpForm = ({
         setAiLoading(false);
       }
     } else {
-      // No user input - generate standard response
       const prompt = replaceTemplatePlaceholders(
         AI_HELP_CONSTANTS.PROMPT_TEMPLATES.WITH_START_PHRASE,
         {
           fieldLabel,
           contextSnippet,
-          language: preferedLanguage || AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
+          language:
+            (preferedLanguage as string) || AI_HELP_CONSTANTS.DEFAULT_LANGUAGE,
           wordLimit: AI_HELP_CONSTANTS.WORD_LIMIT,
           tone: AI_HELP_CONSTANTS.TONE,
           startPhrase: AI_HELP_CONSTANTS.START_PHRASE,
@@ -253,7 +254,7 @@ const useSituationDescriptionAiHelpForm = ({
         setAiSuggesstion(result.choices[0].message.content);
         setAiLoading(false);
       } catch (error) {
-        console.warn('error:', error);
+        console.warn(ERROR_MESSAGES.ERROR, error);
         setAiLoading(false);
         setAiError(AI_HELP_CONSTANTS.ERROR_MESSAGES.NETWORK_ERROR);
       }

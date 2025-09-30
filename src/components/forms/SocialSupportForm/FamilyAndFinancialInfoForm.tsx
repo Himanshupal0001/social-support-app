@@ -21,7 +21,6 @@ const FamilyAndFinancialInfoForm = ({ control }: Props) => {
   const form = t('forms.familyAndFinancialInfo', {
     returnObjects: true,
   }) as TFamilyAndFinancialInfoFormTranslation;
-  console.log('familyform', form);
 
   return (
     <div className="md:grid md:grid-cols-2 md:gap-4 space-y-4">

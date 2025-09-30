@@ -117,18 +117,14 @@ export const NATIONAL_ID_OPTIONS = {
 } as const;
 
 export const PERSONAL_INFO_CONSTANTS = {
-  // Name validation
   NAME_MIN_LENGTH: 3,
   NAME_MAX_LENGTH: 100,
 
-  // Address validation
   ADDRESS_MAX_LENGTH: 500,
 
-  // Phone validation
   PHONE_PATTERN: /^\+?\d{1,3}[ ]?\d{8,10}([ ]?\d{2,4}){0,2}$/,
   DEFAULT_COUNTRY: 'AE',
 
-  // Email validation
   EMAIL_PATTERN: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 } as const;
 
@@ -175,10 +171,8 @@ export const HOUSING_STATUS_OPTIONS = {
 } as const;
 
 export const FAMILY_FINANCIAL_CONSTANTS = {
-  // Dependents validation
   DEPENDENTS_MAX: 10,
 
-  // Currency settings
   DEFAULT_CURRENCY: 'AED',
   CURRENCY_VARIANT: 'small' as const,
 } as const;
@@ -188,10 +182,8 @@ export const FAMILY_FINANCIAL_CONSTANTS = {
 // ============================================================================
 
 export const SITUATION_DESCRIPTIONS_CONSTANTS = {
-  // Text area validation
   MAX_LENGTH: 500,
 
-  // AI Help button text
   HELP_ME_WRITE: 'Help me write',
 } as const;
 
@@ -200,21 +192,17 @@ export const SITUATION_DESCRIPTIONS_CONSTANTS = {
 // ============================================================================
 
 export const AI_HELP_CONSTANTS = {
-  // Response constraints
   WORD_LIMIT: '60-180 words',
   TONE: 'respectful, and professional',
   START_PHRASE: 'I am currently...',
 
-  // Language settings
   DEFAULT_LANGUAGE: 'English',
 
-  // Classification settings
   CLASSIFICATION: {
     FALSE_VALUE: 'false',
     LOG_MESSAGE: 'Classification error:',
   },
 
-  // Context labels
   CONTEXT_LABELS: {
     NAME: 'Name',
     DEPENDENTS: 'Dependents',
@@ -224,14 +212,12 @@ export const AI_HELP_CONSTANTS = {
     UNKNOWN: '(unknown)',
   },
 
-  // Field labels
   FIELD_LABELS: {
     FINANCIAL_SITUATION: 'Current Financial Situation',
     EMPLOYMENT_CIRCUMSTANCES: 'Employment Circumstances',
     REASON_FOR_APPLYING: 'Reason for Applying',
   },
 
-  // Error messages
   ERROR_MESSAGES: {
     OFF_TOPIC_REDIRECTION:
       "I'm here to help you describe your situation for the social support application. Let's stay focused so we can best assist you.",
@@ -241,7 +227,6 @@ export const AI_HELP_CONSTANTS = {
     CLASSIFICATION_ERROR: 'Classification error:',
   },
 
-  // AI Prompt templates
   PROMPT_TEMPLATES: {
     ENHANCED:
       'Based on this situation: "{userInput}", help write a clear, empathetic paragraph for: {fieldLabel} with the following context: {contextSnippet} according to user\'s prefered language: {language}. Keep it between {wordLimit}, {tone}. Focus on the user\'s specific situation and make it relevant to their social support application.',
@@ -251,7 +236,6 @@ export const AI_HELP_CONSTANTS = {
       'Write a clear, empathetic paragraph for: {fieldLabel} with the following context: {contextSnippet} according to user\'s prefered language: {language}. Keep it between {wordLimit}, {tone}. Start with "{startPhrase}" if appropriate.',
   },
 
-  // Sample phrases
   SAMPLE_PHRASES: {
     FINANCIAL_SITUATION:
       'I am currently facing financial challenges due to {employmentStatus}. This has impacted my ability to meet essential expenses including housing, utilities, and daily necessities. I am seeking support through this program to help stabilize my financial situation while I work towards long-term stability.',
@@ -267,16 +251,13 @@ export const AI_HELP_CONSTANTS = {
 // ============================================================================
 
 export const REVIEW_STEP_CONSTANTS = {
-  // Section title translation keys (using sectionTitle property)
   SECTION_TITLE_KEYS: {
     [SECTION_KEYS.PERSONAL]: 'forms.personalInformation.sectionTitle',
     [SECTION_KEYS.FINANCIAL]: 'forms.familyAndFinancialInfo.sectionTitle',
     [SECTION_KEYS.SITUATION]: 'forms.situationDescriptions.sectionTitle',
   },
 
-  // Field label translation keys
   FIELD_LABEL_KEYS: {
-    // Personal Information
     name: 'forms.personalInformation.name.label',
     nationalId: 'forms.personalInformation.nationalId.label',
     dateOfBirth: 'forms.personalInformation.dateOfBirth.label',
@@ -288,21 +269,18 @@ export const REVIEW_STEP_CONSTANTS = {
     phoneNumber: 'forms.personalInformation.phoneNumber.label',
     email: 'forms.personalInformation.email.label',
 
-    // Family & Financial
     maritalStatus: 'forms.familyAndFinancialInfo.maritalStatus.label',
     dependents: 'forms.familyAndFinancialInfo.dependents.label',
     employmentStatus: 'forms.familyAndFinancialInfo.employmentStatus.label',
     monthlyIncome: 'forms.familyAndFinancialInfo.monthlyIncome.label',
     housingStatus: 'forms.familyAndFinancialInfo.housingStatus.label',
 
-    // Situation Descriptions
     financialSituation: 'forms.situationDescriptions.financialSituation.label',
     employmentCircumstances:
       'forms.situationDescriptions.employmentCircumstances.label',
     reasonForApplying: 'forms.situationDescriptions.reasonForApplying.label',
   },
 
-  // Value formatting
   VALUE_FORMATTING: {
     CURRENCY_SEPARATOR: ' ',
     EMPTY_VALUE: '—',
@@ -310,7 +288,6 @@ export const REVIEW_STEP_CONSTANTS = {
     DEPENDENTS_SINGULAR: 'dependent',
   },
 
-  // CSS Classes
   STYLING: {
     SECTION_CONTAINER:
       'relative bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden',
@@ -325,14 +302,8 @@ export const REVIEW_STEP_CONSTANTS = {
     EDIT_BUTTON: 'h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm',
   },
 
-  // UI text translation keys
   UI_TEXT_KEYS: {
     EDIT_BUTTON: 'forms.mainForm.editButton',
-  },
-
-  // Debug messages
-  DEBUG: {
-    SECTIONS_LOG: 'sections::',
   },
 } as const;
 
