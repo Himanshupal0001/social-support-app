@@ -73,7 +73,7 @@ The whole process is designed to be smooth and give users clear feedback at ever
    Create a `.env` file in the root folder:
 
    ```env
-   VITE_API_BASE_URL=http://localhost:3000/api
+   VITE_API_BASE_URL=http://open_api_endpoint/api
    VITE_OPENAI_API_KEY=your_openai_api_key_here
    ```
 
@@ -112,3 +112,64 @@ npm run lint         # Check code quality
 ```
 
 That's it! The project should be up and running. If you run into any issues, check that you have Node.js installed and that all the dependencies were installed correctly.
+
+---
+
+## Application Overview
+
+### Description of Application
+
+This application is a social support portal designed for people who need financial assistance. Applicants complete a guided form that collects their personal information, family and financial details, and a description of their situation. The portal also includes an AI assistant to help users clearly and respectfully describe their circumstances.
+
+### Key Features
+
+- **Responsive and mobile-friendly**: Optimized layouts across phones, tablets, and desktops
+- **Clean, descriptive design**: Intuitive UI that reduces friction while filling forms
+- **Theme support**: Light/dark modes for comfort and accessibility
+- **Language support**: Full i18n with English and Arabic
+- **AI Assist**: Context-aware helper to improve situation descriptions
+
+---
+
+## Architecture (Top Layer)
+
+This high-level view illustrates the layered design and how responsibilities are separated across the application.
+
+![Top Layer Architecture](https://i.postimg.cc/YLjVMDnk/Screenshot-2025-09-30-at-2-20-25-PM.png)
+
+### Layers at a glance
+
+- **Presentation (UI)**: React + shadcn/ui + Tailwind, routed views, modals, and form steps
+- **State & Forms**: React Hook Form for validation and submission, local storage for draft persistence
+- **Domain & i18n**: Centralized enums/constants, typed translations, label/value formatting
+- **Services**: Axios client with interceptors, OpenAI integration with guardrails and classification
+- **Error Handling**: ErrorBoundary with localized fallback and dynamic error routes
+
+---
+
+## Flow Architecture
+
+This diagram highlights the essential routes and core components, and how data flows between them.
+
+[Architecture-Diagram.png](https://postimg.cc/ZWKhMjmL)
+
+Key points:
+
+- Multi-step application form with clear progression and section review
+- Centralized service layer for API access and AI calls
+- Localization and theming applied as cross-cutting concerns
+- Dynamic error pages (e.g., `/error/:status`) for a consistent failure experience
+
+---
+
+## Form Flow (Key Feature)
+
+The following action diagram shows the detailed flow of the stepper-based application process and how data moves through each stage.
+
+![Form Action Flow](https://i.postimg.cc/p9Y3ZFhh/Flow-doagram.png)
+
+Highlights:
+
+- Step-specific validation and smooth transitions
+- Autosave/restore using local storage to prevent data loss
+- Final review page with translated labels and formatted values
