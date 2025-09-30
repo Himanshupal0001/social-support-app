@@ -117,6 +117,7 @@ const useSituationDescriptionAiHelpForm = ({
       dependentsText,
     });
   };
+
   const handleHelpMeWrite = (fieldName: FieldNames) => {
     const currentValue = getCurrentFieldValue(fieldName);
     const hasExistingText = currentValue && currentValue.trim().length > 0;
@@ -173,7 +174,7 @@ const useSituationDescriptionAiHelpForm = ({
 
     if (hasUserInput) {
       try {
-        const classificationResult = await OPENAISERVICE.contextCLassifier(
+        const classificationResult = await OPENAISERVICE.contextClassifier(
           aiSuggesstion
         );
         const isContextRelated = classificationResult.choices[0].message.content
