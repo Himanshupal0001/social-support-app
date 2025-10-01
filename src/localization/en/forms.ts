@@ -187,8 +187,8 @@ export const mainForm: TMainFormTranslation = {
 };
 
 export const currencySelect: TCurrencySelectTranslation = {
-  currency: 'Please select Currency',
-  range: 'Please select Range',
+  currency: 'Please select currency',
+  range: 'Please select range',
   placeholder: 'Select range',
   errors: {
     required: 'This field is required',
@@ -211,14 +211,12 @@ export const toastMessages = {
   },
 };
 
-// UI Components
 export const uiComponents = {
   datePicker: {
     pickDate: 'Pick a date',
   },
 };
 
-// Regions (countries, states, cities)
 export const region: TRegionTranslation = {
   countries: {
     uae: 'United Arab Emirates',

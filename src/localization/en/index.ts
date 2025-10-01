@@ -20,6 +20,7 @@ import {
   toastMessages,
   uiComponents,
   region,
+  currencySelect,
 } from './forms';
 export const enTranslations = {
   navbar,
@@ -44,5 +45,6 @@ export const enTranslations = {
     toastMessages,
     uiComponents,
     region,
+    currencySelect,
   },
 };
