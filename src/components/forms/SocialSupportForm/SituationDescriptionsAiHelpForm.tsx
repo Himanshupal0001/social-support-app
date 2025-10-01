@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { type Control } from 'react-hook-form';
 import { IoSparklesSharp } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
-import useSituationDescriptionAiHelpForm from './useSituationDescriptionAiHelpForm';
-import { type FormData } from './useSituationDescriptionAiHelpForm';
+import useSituationDescriptionAiHelpForm, {
+  type FormData,
+} from './useSituationDescriptionAiHelpForm';
 import {
   SituationFieldNames,
   SITUATION_DESCRIPTIONS_CONSTANTS,
