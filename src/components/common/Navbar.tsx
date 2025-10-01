@@ -52,11 +52,8 @@ export default function Navbar() {
           >
             {t('navbar.applyNow')}
           </NavLink>
-          <LanguageToggle />
-          <ThemeToggle />
         </nav>
-
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-3">
           <LanguageToggle />
           <ThemeToggle />
         </div>
