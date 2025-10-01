@@ -42,6 +42,24 @@ export default function LanguageToggle() {
     [language]
   );
 
+  // useEffect(() => {
+  //   const handleLanguageChange = (lng: string) => {
+  //     if (isSupported(lng)) {
+  //       setLanguage(lng as ESupportedLanguageCode);
+  //     }
+  //   };
+
+  //   i18n.on('languageChanged', handleLanguageChange);
+
+  //   const currentLng = i18n.language;
+  //   if (isSupported(currentLng) && currentLng !== language) {
+  //     setLanguage(currentLng as ESupportedLanguageCode);
+  //   }
+  //   return () => {
+  //     i18n.off('languageChanged', handleLanguageChange);
+  //   };
+  // }, []);
+
   useEffect(() => {
     void i18n.changeLanguage(language);
     StorageService.set(EStorageKey.TRANSLATION_LANGUAGE, language);
