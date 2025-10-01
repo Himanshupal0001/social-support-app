@@ -16,7 +16,7 @@ If a user asks something irrelevant (e.g., stock prices, jokes, general chit-cha
 
 Keep your tone professional, friendly, and respectful.`;
 
-export const CONTEXT_CLASSIFIER_PROMPT = `Act as a classifier to classify the given context. If the given context is related to the user\'s application and personal situation return "true". If the given context is not related to the user\'s application and personal situation or the prompt looks like "I am poor, how to buy iphone" consider these kind of conversations off topic or personal chitchat, return "false". Moreover make
+export const CONTEXT_CLASSIFIER_PROMPT = `Act as a classifier to classify the given context. If the given context is related to the user's application and personal situation return "true". If the given context is not related to the user\'s application and personal situation or the prompt looks like "I am poor, how to buy iphone" consider these kind of conversations off topic or personal chitchat, return "false". Moreover make
           the response more concise and to the point. with below checkpoints
           
       - "true" → ONLY if it describes a **severe financial crisis** that impacts the user’s **basic survival** or their **dependents' wellbeing** (e.g., homelessness, inability to afford food, rent, medical care, or other essential needs)

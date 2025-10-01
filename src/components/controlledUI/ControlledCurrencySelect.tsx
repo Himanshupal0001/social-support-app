@@ -47,6 +47,11 @@ const ControlledCurrencySelect = ({
 }: TControlledCurrencySelectProps<FieldValues>) => {
   const { name, control, label, selectProps } = selectInputProps;
 
+  const { t } = useTranslation();
+  const form = t('forms.currencySelect', {
+    returnObjects: true,
+  }) as TCurrencySelectTranslation;
+
   return (
     <Controller
       name={name}
@@ -54,13 +59,13 @@ const ControlledCurrencySelect = ({
       rules={{
         validate: (value) => {
           if (value === undefined || value === '') {
-            return `${label} is required`;
+            return form.errors.required;
           }
           if (value.currency === undefined || value.currency === '') {
-            return 'Please select currency';
+            return form.currency;
           }
           if (value.range === undefined || value.range === '') {
-            return 'Please select value range';
+            return form.range;
           }
           return true;
         },

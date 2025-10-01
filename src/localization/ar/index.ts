@@ -20,6 +20,7 @@ import {
   toastMessages,
   uiComponents,
   region,
+  currencySelect,
 } from './forms';
 
 export const arTranslations = {
@@ -45,5 +46,6 @@ export const arTranslations = {
     toastMessages,
     uiComponents,
     region,
+    currencySelect,
   },
 };

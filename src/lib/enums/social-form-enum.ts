@@ -112,8 +112,85 @@ export const GENDER_OPTIONS = {
 } as const;
 
 export const NATIONAL_ID_OPTIONS = {
-  PASSPRT: 'nationalId.options.passport',
+  PASSOPRT: 'nationalId.options.passport',
   FAMILY_BOOK: 'nationalId.options.familyBook',
+} as const;
+
+export const REGION_OPTIONS = {
+  countries: {
+    uae: 'region.countries.uae',
+    saudi: 'region.countries.saudi',
+    qatar: 'region.countries.qatar',
+    oman: 'region.countries.oman',
+  },
+  states: {
+    uae: {
+      dubai: 'region.states.uae.dubai',
+      abu_dhabi: 'region.states.uae.abu_dhabi',
+    },
+    saudi: {
+      riyadh: 'region.states.saudi.riyadh',
+      jeddah: 'region.states.saudi.jeddah',
+    },
+    qatar: {
+      doha: 'region.states.qatar.doha',
+      al_rayyan: 'region.states.qatar.al_rayyan',
+    },
+    oman: {
+      muscat: 'region.states.oman.muscat',
+      salalah: 'region.states.oman.salalah',
+    },
+  },
+  cities: {
+    uae: {
+      dubai: {
+        deira: 'region.cities.uae.dubai.deira',
+        jumeirah: 'region.cities.uae.dubai.jumeirah',
+        bur_dubai: 'region.cities.uae.dubai.bur_dubai',
+      },
+      abu_dhabi: {
+        al_ain: 'region.cities.uae.abu_dhabi.al_ain',
+        madinat_zayed: 'region.cities.uae.abu_dhabi.madinat_zayed',
+        ruwais: 'region.cities.uae.abu_dhabi.ruwais',
+      },
+    },
+    saudi: {
+      riyadh: {
+        al_malaz: 'Al Malaz',
+        al_olaya: 'Al Olaya',
+        al_batha: 'Al Batha',
+      },
+      jeddah: {
+        al_balad: 'Al Balad',
+        al_hamra: 'Al Hamra',
+        al_safa: 'Al Safa',
+      },
+    },
+    qatar: {
+      doha: {
+        al_sadd: 'Al Sadd',
+        west_bay: 'West Bay',
+        the_pearl: 'The Pearl',
+      },
+      al_rayyan: {
+        al_gharrafa: 'Al Gharrafa',
+        education_city: 'Education City',
+        muaither: 'Muaither',
+      },
+    },
+    oman: {
+      muscat: {
+        ruwi: 'Ruwi',
+        muttrah: 'Muttrah',
+        al_khuwair: 'Al Khuwair',
+      },
+      salalah: {
+        al_haffa: 'Al Haffa',
+        al_wadi: 'Al Wadi',
+        salalah_gardens: 'Salalah Gardens',
+      },
+    },
+  },
 } as const;
 
 export const PERSONAL_INFO_CONSTANTS = {
@@ -221,7 +298,7 @@ export const AI_HELP_CONSTANTS = {
   },
 
   ERROR_MESSAGES: {
-    OFF_TOPIC_REDIRECTION: `I'm here to help you describe your situation for the social support application. Let's stay focused so we can best assist you.`,
+    OFF_TOPIC_REDIRECTION: 'errors.offTopicRedirection',
     INVALID_CONTEXT: 'errors.invalidContext',
     NETWORK_ERROR: 'errors.networkError',
     CLASSIFICATION_ERROR: 'errors.classificationError',
@@ -229,11 +306,11 @@ export const AI_HELP_CONSTANTS = {
 
   PROMPT_TEMPLATES: {
     ENHANCED:
-      'Based on this situation: "{userInput}", help write a clear, empathetic paragraph for: {fieldLabel} with the following context: {contextSnippet} according to user\'s prefered language: {language}. Keep it between {wordLimit}, {tone}. Focus on the user\'s specific situation and make it relevant to their social support application.',
+      "Based on this situation: \"{userInput}\", help write a clear, empathetic paragraph in first person pov of the user for: {fieldLabel} with the following context: {contextSnippet} according to user's prefered language: {language} if preferred language is ar it means arabic language.Make sure to give response in the same language as the user's prefered language. Keep it between {wordLimit}, {tone}. Focus on the user's specific situation and make it relevant to their social support application.",
     STANDARD:
-      "Write a clear, empathetic paragraph for: {fieldLabel} with the following context: {contextSnippet} according to user's prefered language: {language}. Keep it between {wordLimit}, {tone}.",
+      "Write a clear, empathetic paragraph in first person pov of the user for: {fieldLabel} with the following context: {contextSnippet} according to user's prefered language: {language} if preferred language is ar it means arabic language.Make sure to give response in the same language as the user's prefered language. Keep it between {wordLimit}, {tone}.",
     WITH_START_PHRASE:
-      'Write a clear, empathetic paragraph for: {fieldLabel} with the following context: {contextSnippet} according to user\'s prefered language: {language}. Keep it between {wordLimit}, {tone}. Start with "{startPhrase}" if appropriate.',
+      'Write a clear, empathetic paragraph in first person pov of the user for: {fieldLabel} with the following context: {contextSnippet} according to user\'s prefered language: {language} if preferred language is ar it means arabic language.Make sure to give response in the same language as the user\'s prefered language. Keep it between {wordLimit}, {tone}. Start with "{startPhrase}" if appropriate.',
   },
 
   SAMPLE_PHRASES: {
@@ -288,19 +365,19 @@ export const REVIEW_STEP_CONSTANTS = {
     DEPENDENTS_SINGULAR: 'dependent',
   },
 
-  STYLING: {
-    SECTION_CONTAINER:
-      'relative bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden',
-    SECTION_HEADER:
-      'bg-gray-50 dark:bg-gray-800 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700',
-    SECTION_CONTENT: 'p-4 sm:p-6',
-    FIELD_GRID: 'grid grid-cols-1 sm:grid-cols-2 gap-3',
-    FIELD_CONTAINER: 'rounded-lg border p-3 bg-background/50',
-    FIELD_LABEL: 'text-xs text-muted-foreground',
-    FIELD_VALUE: 'mt-1 text-sm break-words',
-    ICON_CONTAINER: 'p-1.5 sm:p-2 bg-primary/10 rounded-lg',
-    EDIT_BUTTON: 'h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm',
-  },
+  // STYLING: {
+  //   SECTION_CONTAINER:
+  //     'relative bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden',
+  //   SECTION_HEADER:
+  //     'bg-gray-50 dark:bg-gray-800 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700',
+  //   SECTION_CONTENT: 'p-4 sm:p-6',
+  //   FIELD_GRID: 'grid grid-cols-1 sm:grid-cols-2 gap-3',
+  //   FIELD_CONTAINER: 'rounded-lg border p-3 bg-background/50',
+  //   FIELD_LABEL: 'text-xs text-muted-foreground',
+  //   FIELD_VALUE: 'mt-1 text-sm break-words',
+  //   ICON_CONTAINER: 'p-1.5 sm:p-2 bg-primary/10 rounded-lg',
+  //   EDIT_BUTTON: 'h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm',
+  // },
 
   UI_TEXT_KEYS: {
     EDIT_BUTTON: 'forms.mainForm.editButton',

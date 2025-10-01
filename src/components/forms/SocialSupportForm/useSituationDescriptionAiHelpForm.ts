@@ -8,6 +8,7 @@ import { OPENAISERVICE } from '@/services/api/open-ai';
 import { StorageService } from '@/services/storage-service';
 import { useRef, useState } from 'react';
 import { useFormContext, type Control, useWatch } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 export type FormData = {
   name: string;
@@ -37,6 +38,7 @@ const useSituationDescriptionAiHelpForm = ({
 }: {
   control: Control<FormData>;
 }) => {
+  const { t } = useTranslation();
   const [askAiFieldName, setAskAiFieldName] = useState<FieldNames>();
   const [aiLoading, setAiLoading] = useState<boolean>(false);
   const [aiError, setAiError] = useState<string>('');
@@ -184,9 +186,9 @@ const useSituationDescriptionAiHelpForm = ({
         if (isContextRelated === AI_HELP_CONSTANTS.CLASSIFICATION.FALSE_VALUE) {
           setAiLoading(false);
           setAiSuggesstion(
-            AI_HELP_CONSTANTS.ERROR_MESSAGES.OFF_TOPIC_REDIRECTION
+            t(AI_HELP_CONSTANTS.ERROR_MESSAGES.OFF_TOPIC_REDIRECTION)
           );
-          setAiError(AI_HELP_CONSTANTS.ERROR_MESSAGES.CLASSIFICATION_ERROR);
+          setAiError(t(AI_HELP_CONSTANTS.ERROR_MESSAGES.CLASSIFICATION_ERROR));
           return;
         }
 
